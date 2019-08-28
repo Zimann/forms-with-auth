@@ -1,27 +1,18 @@
-# TheGentsChat
+# Login-Signup-Switch
+- This page will serve as the home page in an upcoming chat application if a user is not registered/logged.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.1.
+## Functionality
+- The sections slide within one another to reveal the login and the sign-up reactive forms with a built in validation
 
-## Development server
+## Technologies used
+- Angular 7
+- HTML5 & CSS3 
+- RxJS
+- TypeScript
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Inspiration 
+- The entire idea was drawn out of Florin Pop's blogpost which can be found here:
+https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/
 
-## Code scaffolding
+Note: No code was copied or pasted. The sole inspiration consisted of visually analyzing the movements of the forms without consulting any of the code that the blog post provides.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
