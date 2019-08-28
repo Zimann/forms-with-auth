@@ -1,0 +1,14 @@
+<div [ngClass]="{'move-main-color-layer': slideElements}" class="floating-layout-wrapper">
+  <div  class="floating-texts-wrapper">
+    <div [ngClass]="{'move-login-text': slideElements}" class="floating-text-login">
+      <h2>Howdy chief!</h2>
+      <p>Please fill in the details so that we start getting to know you!</p>
+      <button (click)="toggleFormMovements()">Log in</button>
+    </div>
+    <div class="floating-text-sign-up">
+      <h2>Good to have you back!</h2>
+      <p>Please login using your credentials</p>
+      <button (click)="toggleFormMovements()">Sign up</button>
+    </div>
+  </div>
+</div>

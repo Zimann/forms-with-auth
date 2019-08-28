@@ -1,0 +1,18 @@
+<div class="login-form-wrapper">
+  <div class="login-form-body" [ngClass]="{'move-log-in-form':formMoveInitiated}">
+    <h2>Log in</h2>
+    <form [formGroup] = loginForm (ngSubmit)="onSubmitLogin()">
+      <label for="email"></label>
+      <input required id="email" formControlName="email" placeholder="Email" type="email">
+      <small [class.hide-input-validation]="(loginEmail.valid || loginEmail.untouched) && loginChecker.email">
+        Email is not valid
+      </small>
+      <label for="password"></label>
+      <input required id="password" formControlName="password" placeholder="Password" type="password">
+      <small [class.hide-input-validation]="(loginPassword.valid || loginPassword.untouched) && loginChecker.password">
+        Password is not valid
+      </small>
+      <button [disabled]="signInSubmitted" type="submit">Log in</button>
+    </form>
+  </div>
+</div>

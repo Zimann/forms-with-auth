@@ -1,0 +1,84 @@
+.floating-layout-wrapper {
+  position: absolute;
+  transform: translateZ(0);
+  right: 0;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow:hidden;
+  transition: all 0.7s ease-in-out;
+  flex-wrap: wrap;
+  background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+
+  .floating-texts-wrapper {
+    display: flex;
+
+    div {
+      width: 350px;
+      text-align: center;
+      color: white;
+      transition: all 0.7s ease-in-out;
+
+      p {
+        padding: 0 20px;
+        line-height: 22px;
+      }
+    }
+
+    .floating-text-login {
+      margin-left: -400px;
+    }
+
+    .floating-text-sign-up {
+      text-align: center;
+      color: white;
+      margin-left: 50px;
+
+      p {
+        padding: 0 20px;
+        line-height: 22px;
+      }
+    }
+      button {
+        border: 1px solid white;
+        border-radius: 15px;
+        font-family: 'Roboto', sans-serif;
+        color: white;
+        margin-top: 10px;
+        padding: 8px 35px;
+        background-color: transparent;
+        transition: all 0.2s ease-in-out;
+        font-weight: 500;
+
+        &:hover {
+          cursor: pointer;
+          background-color: white;
+          color: #F09819;
+          border-color: transparent;
+          outline: none;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+    h2 {
+      color: white;
+      font-size: 30px;
+      letter-spacing: 0.04rem;
+    }
+  }
+}
+
+/* Movement classes */
+
+.move-main-color-layer {
+  margin-right: 350px;
+}
+
+.move-login-text {
+  margin-left: 400px !important;
+}
