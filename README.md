@@ -8,3 +8,4 @@
 - HTML5 & CSS3 
 - RxJS
 - TypeScript
+
