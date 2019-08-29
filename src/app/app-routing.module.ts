@@ -6,7 +6,7 @@ const appRoutes: Routes = [
   {path: '', component: FormsComponent},
   {
     path: '',
-    redirectTo: '',
+    redirectTo: '/',
     pathMatch: 'full'
   }
 ];
