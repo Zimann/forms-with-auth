@@ -5,7 +5,8 @@ import {FormsComponent} from './forms/forms.component';
 const appRoutes: Routes = [
   {path: '', component: FormsComponent},
   {
-    path: '/',
+    path: '',
+    redirectTo: '',
     pathMatch: 'full'
   }
 ];
