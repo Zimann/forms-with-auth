@@ -9,8 +9,8 @@ import {AuthService} from '../../services/auth.service';
 export class FormActionTextsComponent implements OnInit {
 
   slideElements = false;
-  private isUserSignedUp = this.authService.signedUpSubj;
-  private isUserLoggedIn = this.authService.loggedInSubj;
+  public isUserSignedUp = this.authService.signedUpSubj;
+  public isUserLoggedIn = this.authService.loggedInSubj;
   @Output() moveForms = new EventEmitter<boolean>();
   @Input() triggerFormMovement: boolean;
   constructor(private authService: AuthService) { }

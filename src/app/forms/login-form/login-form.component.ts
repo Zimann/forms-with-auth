@@ -14,8 +14,8 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   @Input() formMoveInitiated: boolean;
 
   private destroyed$ = new ReplaySubject(1);
-  private isUserSignedIn = this.authService.loggedInSubj;
-  private loaderSub = this.authService.logInLoaderSubj;
+  public isUserSignedIn = this.authService.loggedInSubj;
+  public loaderSub = this.authService.logInLoaderSubj;
   public loginForm: FormGroup;
   public loginChecker = {
     email: true,

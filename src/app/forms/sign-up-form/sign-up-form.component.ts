@@ -11,8 +11,8 @@ import {AuthService} from '../../services/auth.service';
 export class SignUpFormComponent implements OnInit, OnDestroy {
 
   private destroyed$ = new ReplaySubject(1);
-  private isUserSignedUp = this.authService.signedUpSubj;
-  private loaderSub = this.authService.signUpLoaderSubj;
+  public isUserSignedUp = this.authService.signedUpSubj;
+  public loaderSub = this.authService.signUpLoaderSubj;
   @Input() formMoveInitiated: boolean;
   public signUpForm: FormGroup;
   public signUpChecker = {
