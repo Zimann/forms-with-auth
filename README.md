@@ -9,6 +9,7 @@
 - HTML5 & CSS3 
 - RxJS
 - TypeScript
+- Firebase(as a backend authentication solution)
 
 ## Inspiration 
 - The entire idea was drawn out of Florin Pop's blogpost which can be found here:
