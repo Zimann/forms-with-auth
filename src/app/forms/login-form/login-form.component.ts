@@ -1,8 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {LoginService} from '../../services/login.service';
-import {take, takeUntil} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 import {ReplaySubject} from 'rxjs';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -14,14 +14,15 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   @Input() formMoveInitiated: boolean;
 
   private destroyed$ = new ReplaySubject(1);
-  public signInSubmitted: boolean;
+  private isUserSignedIn = this.authService.loggedInSubj;
+  private loaderSub = this.authService.logInLoaderSubj;
   public loginForm: FormGroup;
   public loginChecker = {
     email: true,
     password: true
   };
   constructor( private formBuild: FormBuilder,
-               private loginService: LoginService) { }
+               private authService: AuthService) { }
 
   get loginEmail() {
     return this.loginForm.get('email');
@@ -35,8 +36,8 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
     // check the password and email fields
     if ((this.loginForm.value.email === '' && this.loginForm.value.password === '') ||
-      this.loginForm.controls.email.status === 'INVALID' &&
-      this.loginForm.controls.password.status === 'INVALID'
+        this.loginForm.controls.email.status === 'INVALID' &&
+        this.loginForm.controls.password.status === 'INVALID'
     ) {
       this.loginChecker.email = false;
       this.loginChecker.password = false;
@@ -52,13 +53,8 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.signInSubmitted = true;
-    this.loginService.postLoginData(this.loginForm.value)
-      .pipe(take(1))
-      .subscribe(
-        response => console.log('Success'),
-        error => console.log(error)
-      );
+    this.authService.logInUser(this.loginEmail.value, this.loginPassword.value);
+    this.loginForm.reset();
   }
 
   ngOnInit() {
@@ -79,16 +75,16 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
     // this is where we get data from the login form
     this.loginForm.valueChanges
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(value => {
-        // handles hiding error messages when typing is detected
-        if (value.email !== '') {
-          this.loginChecker.email = true;
-        }
-        if (value.password !== '') {
-          this.loginChecker.password = true;
-        }
-      });
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe(value => {
+          // handles hiding error messages when typing is detected
+          if (value.email !== '') {
+            this.loginChecker.email = true;
+          }
+          if (value.password !== '') {
+            this.loginChecker.password = true;
+          }
+        });
   }
 
   ngOnDestroy(): void {

@@ -8,7 +8,9 @@
     <div class="floating-text-sign-up">
       <h2>Good to have you back!</h2>
       <p>Please login using your credentials</p>
-      <button (click)="toggleFormMovements()">Sign up</button>
+      <button
+              [ngClass]="{'deactivate': (isUserLoggedIn | async) === true}"
+              *ngIf="(isUserSignedUp | async) !== true " (click)="toggleFormMovements()">Sign up</button>
     </div>
   </div>
 </div>

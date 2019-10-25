@@ -2,11 +2,6 @@
   <div class="signup-form-body" [ngClass]="{'move-sign-up-form':formMoveInitiated}">
     <h2>Sign up</h2>
     <form [formGroup] = signUpForm (ngSubmit)="onSubmitSignUp()">
-      <label for="name"></label>
-      <input required id="name" formControlName="name" placeholder="Name" type="text">
-      <small [class.hide-input-validation]="(signUpName.valid || signUpName.untouched) && signUpChecker.name">
-        Please enter a name
-      </small>
       <label for="email_sign_up"></label>
       <input required id="email_sign_up" formControlName="email" placeholder="Email" type="email">
       <small [class.hide-input-validation]="(signUpEmail.valid || signUpEmail.untouched) && signUpChecker.email">
@@ -14,10 +9,18 @@
       </small>
       <label for="password_sign_up"></label>
       <input required id="password_sign_up" formControlName="password" placeholder="Password" type="password">
-      <small [class.hide-input-validation]="(signUpPassword.valid || signUpPassword.untouched) && signUpChecker.password">
+      <small [class.hide-input-validation]="signUpPassword.valid || (signUpPassword.invalid && signUpPassword.pristine)">
         Password is too short (Min 9 chars)
       </small>
-      <button [disabled]="signUpSubmitted" type="submit">Sign up</button>
+      <button [disabled]="
+      (isUserSignedUp | async) === true ||
+      signUpEmail.invalid ||
+      signUpPassword.invalid" type="submit">Sign up</button>
+      <span *ngIf="(loaderSub | async) === false" class="loader"></span>
     </form>
   </div>
+</div>
+<div class="notification-messages signup-messages">
+  <p *ngIf="(isUserSignedUp | async) === true">Thank you for joining us!<br> All you have to do now is log in on the left side.</p>
+  <p class="submission-error" *ngIf="(isUserSignedUp | async) !== true">{{ isUserSignedUp | async }}</p>
 </div>

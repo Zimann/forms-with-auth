@@ -1,4 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-form-action-texts',
@@ -8,8 +9,11 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 export class FormActionTextsComponent implements OnInit {
 
   slideElements = false;
+  private isUserSignedUp = this.authService.signedUpSubj;
+  private isUserLoggedIn = this.authService.loggedInSubj;
   @Output() moveForms = new EventEmitter<boolean>();
-  constructor() { }
+  @Input() triggerFormMovement: boolean;
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }

@@ -47,11 +47,19 @@ form {
     outline: none;
     transition: all .2s ease-in-out;
 
+    &:disabled {
+      background-color: grey;
+      cursor: not-allowed;
+    }
+
     &:hover {
-      cursor: pointer;
-      color: #FF926B;
-      border-color: #FF926B;
-      background-color: transparent;
+
+      &:not([disabled]) {
+        cursor: pointer;
+        color: #FF926B;
+        border-color: #FF926B;
+        background-color: transparent;
+      }
     }
 
     &:focus {
@@ -74,4 +82,82 @@ form {
 
 .hide-input-validation {
   display: none;
+}
+
+/* Loader */
+.loader
+{
+  position: absolute;
+  right: 76px;
+  bottom: 1px;
+  font-size: 10px;
+  text-indent: -9999em;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ffffff;
+  background: linear-gradient(to right, #0e766f 10%, rgba(255, 255, 255, 0) 42%);
+  -webkit-animation: load3 1.4s infinite linear;
+  animation: load3 1.4s infinite linear;
+  transform: translateZ(0);
+  transition: all .2s ease-in-out;
+
+  &:before {
+    width: 50%;
+    height: 50%;
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+  }
+
+  &:after {
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: '';
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  @-webkit-keyframes load3 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes load3 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.notification-messages {
+  position: absolute;
+  width: 40%;
+
+  p {
+
+    &.submission-error {
+      color: #fd7646;
+    }
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+  }
 }

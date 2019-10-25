@@ -11,6 +11,7 @@ import {FormActionTextsComponent} from './forms/form-action-texts/form-action-te
 import {HttpClientModule} from '@angular/common/http';
 import { LoginFormComponent } from './forms/login-form/login-form.component';
 import { SignUpFormComponent } from './forms/sign-up-form/sign-up-form.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SignUpFormComponent } from './forms/sign-up-form/sign-up-form.component
     FormsComponent,
     FormActionTextsComponent,
     LoginFormComponent,
-    SignUpFormComponent
+    SignUpFormComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

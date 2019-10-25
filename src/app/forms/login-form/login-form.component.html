@@ -10,9 +10,17 @@
       <label for="password"></label>
       <input required id="password" formControlName="password" placeholder="Password" type="password">
       <small [class.hide-input-validation]="(loginPassword.valid || loginPassword.untouched) && loginChecker.password">
-        Password is not valid
+        Password is too short (Min 9 chars)
       </small>
-      <button [disabled]="signInSubmitted" type="submit">Log in</button>
+      <button [disabled]="
+      (isUserSignedIn | async) === true ||
+      loginEmail.invalid ||
+      loginPassword.invalid" type="submit">Log in</button>
+      <span *ngIf="(loaderSub | async) === false" class="loader"></span>
     </form>
   </div>
+</div>
+<div class="notification-messages login-messages">
+  <p *ngIf="(isUserSignedIn | async) === true">Welcome!</p>
+  <p class="submission-error" *ngIf="(isUserSignedIn | async) !== true">{{ isUserSignedIn | async }}</p>
 </div>

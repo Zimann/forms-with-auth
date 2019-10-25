@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {FormsComponent} from './forms/forms.component';
+import {HomeComponent} from './home/home.component';
 
 const appRoutes: Routes = [
-  {path: '', component: FormsComponent},
+  {path: 'authentication', component: FormsComponent},
   {
     path: '',
-    redirectTo: '/',
+    redirectTo: '/authentication',
     pathMatch: 'full'
-  }
+  },
+  {path: 'home', component: HomeComponent}
 ];
 
 @NgModule({

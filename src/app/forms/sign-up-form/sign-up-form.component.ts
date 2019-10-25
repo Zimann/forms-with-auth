@@ -1,8 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SignupService} from '../../services/signup.service';
-import {take} from 'rxjs/operators';
 import {ReplaySubject} from 'rxjs';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup-form',
@@ -12,24 +11,20 @@ import {ReplaySubject} from 'rxjs';
 export class SignUpFormComponent implements OnInit, OnDestroy {
 
   private destroyed$ = new ReplaySubject(1);
+  private isUserSignedUp = this.authService.signedUpSubj;
+  private loaderSub = this.authService.signUpLoaderSubj;
   @Input() formMoveInitiated: boolean;
-  public signUpSubmitted: boolean;
   public signUpForm: FormGroup;
   public signUpChecker = {
     email: true,
     password: true,
-    name: true
   };
 
   constructor(private formBuild: FormBuilder,
-              private signUpService: SignupService) { }
+              private authService: AuthService) { }
 
   get signUpEmail() {
     return this.signUpForm.get('email');
-  }
-
-  get signUpName() {
-    return this.signUpForm.get('name');
   }
 
   get signUpPassword() {
@@ -39,13 +34,12 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
   onSubmitSignUp() {
     // check the password, email and name fields
     if ((this.signUpForm.value.email === '' && this.signUpForm.value.password === '' && this.signUpForm.value.name === '') ||
-      this.signUpForm.controls.email.status === 'INVALID' &&
-      this.signUpForm.controls.password.status === 'INVALID' &&
-      this.signUpForm.controls.name.status === 'INVALID'
+        this.signUpForm.controls.email.status === 'INVALID' &&
+        this.signUpForm.controls.password.status === 'INVALID' &&
+        this.signUpForm.controls.name.status === 'INVALID'
     ) {
       this.signUpChecker.email = false;
       this.signUpChecker.password = false;
-      this.signUpChecker.name = false;
       return;
     }
     if (this.signUpForm.value.email === '' || this.signUpForm.controls.email.status === 'INVALID') {
@@ -58,21 +52,13 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.signUpSubmitted = true;
-    this.signUpService.postSignUpData(this.signUpForm.value)
-      .pipe(take(1))
-      .subscribe(
-        response => console.log('Success'),
-        error => console.log(error)
-      );
+    this.authService.signUpUser(this.signUpEmail.value, this.signUpPassword.value);
+    this.signUpForm.reset();
   }
 
   ngOnInit() {
 
     this.signUpForm = this.formBuild.group({
-      name : ['', [
-        Validators.required
-      ]],
       email: ['', [
         Validators.required,
         Validators.email,
