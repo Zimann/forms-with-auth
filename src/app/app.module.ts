@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { LoginFormComponent } from './forms/login-form/login-form.component';
 import { SignUpFormComponent } from './forms/sign-up-form/sign-up-form.component';
 import { HomeComponent } from './home/home.component';
+import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HomeComponent } from './home/home.component';
     FormActionTextsComponent,
     LoginFormComponent,
     SignUpFormComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileSettingsComponent
   ],
   imports: [
     BrowserModule,

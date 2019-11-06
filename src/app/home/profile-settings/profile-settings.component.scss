@@ -1,0 +1,32 @@
+.settings-menu {
+  position: absolute;
+  width: 100px;
+  background: white;
+  top: 70px;
+  right: 12px;
+  border-radius: 4px;
+  -webkit-box-shadow: 2px 2px 8px -3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 8px -3px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 8px -3px rgba(0,0,0,0.75);
+  transition: all .5s ease-in-out;
+  overflow: hidden;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px;
+
+    li {
+      padding: 10px 0 10px 15px;
+      cursor: pointer;
+      display: block;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        background-color: #FF926B;
+        color: white;
+      }
+    }
+  }
+}
