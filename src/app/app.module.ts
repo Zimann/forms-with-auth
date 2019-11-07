@@ -14,6 +14,7 @@ import { SignUpFormComponent } from './forms/sign-up-form/sign-up-form.component
 import { HomeComponent } from './home/home.component';
 import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
 import { ProfileSlideComponent } from './home/profile-slide/profile-slide.component';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProfileSlideComponent } from './home/profile-slide/profile-slide.compon
     SignUpFormComponent,
     HomeComponent,
     ProfileSettingsComponent,
-    ProfileSlideComponent
+    ProfileSlideComponent,
+    ClickOutsideDirective
   ],
   imports: [
     BrowserModule,
