@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,6 +8,9 @@ import {Router} from '@angular/router';
 })
 export class ProfileSettingsComponent implements OnInit {
 
+  @Output() profileEmitter = new EventEmitter<boolean>();
+  @Input() displayMenu: boolean;
+
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -16,6 +19,10 @@ export class ProfileSettingsComponent implements OnInit {
   logOut() {
     localStorage.clear();
     this.router.navigate(['/authentication']);
+  }
+
+  showProfile() {
+    this.profileEmitter.emit(true);
   }
 
 }

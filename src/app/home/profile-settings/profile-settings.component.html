@@ -1,6 +1,7 @@
-<div class="settings-menu">
+<div class="settings-menu"
+        [ngClass]="{'show-settings-menu': displayMenu}">
     <ul>
-        <li>Profile</li>
+        <li (click)="showProfile()">Profile</li>
         <li>Settings</li>
         <li (click)="logOut()">Logout</li>
     </ul>

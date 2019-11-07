@@ -13,6 +13,7 @@ import { LoginFormComponent } from './forms/login-form/login-form.component';
 import { SignUpFormComponent } from './forms/sign-up-form/sign-up-form.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
+import { ProfileSlideComponent } from './home/profile-slide/profile-slide.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProfileSettingsComponent } from './home/profile-settings/profile-settin
     LoginFormComponent,
     SignUpFormComponent,
     HomeComponent,
-    ProfileSettingsComponent
+    ProfileSettingsComponent,
+    ProfileSlideComponent
   ],
   imports: [
     BrowserModule,

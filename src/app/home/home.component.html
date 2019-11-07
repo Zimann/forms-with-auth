@@ -1,11 +1,16 @@
-<section class="login-section">
+<!--<div *ngIf="showMenu" class="backdrop" (click)="showSettingsMenu()"></div>-->
+<section class="control-panel">
     <div class="profile-section">
         <div class="profile-content-wrapper">
             <i class="fas fa-user-circle"></i>
-            <i class="fas fa-cogs"></i>
+            <i class="fas fa-cogs" (click) = showSettingsMenu()></i>
         </div>
-        <app-profile-settings></app-profile-settings>
+        <app-profile-settings
+                (profileEmitter)="showProfileSection($event)"
+                [displayMenu]="showMenu"
+        ></app-profile-settings>
     </div>
+    <app-profile-slide [slideIn]="setSlidingState()"></app-profile-slide>
 </section>
 <small class="favicon-text">Favicon provided by <a target="_blank" href="https://icons8.com">icons8.com</a> </small>
 <div class="bottom-separator"></div>

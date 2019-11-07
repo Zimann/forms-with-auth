@@ -1,0 +1,21 @@
+section {
+  width: 400px;
+  position: absolute;
+  left: -400px;
+  top: 0;
+  height: 100%;
+  transition: all 0.3s ease-in;
+  transform: translateZ(0);
+  background: yellow;
+  display: none;
+
+  &.slide-in {
+    left: 0
+  }
+
+    .profile-header {
+      background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+      height: 100px;
+      width: 100%;
+    }
+}
