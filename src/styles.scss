@@ -17,3 +17,8 @@ html, body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Angular Material styling */
+.mat-form-field-underline {
+  height: 0 !important;
+}

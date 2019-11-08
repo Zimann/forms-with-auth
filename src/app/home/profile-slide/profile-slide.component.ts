@@ -9,6 +9,7 @@ export class ProfileSlideComponent implements OnInit {
 
   @Input() slideIn: boolean;
   @Output() slideOutEmitter = new EventEmitter<boolean>();
+  profileForm: any;
 
   constructor() { }
 

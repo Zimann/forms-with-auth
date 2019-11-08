@@ -91,16 +91,30 @@ section {
         }
       }
 
+
       .user-custom-cols {
         width: 100%;
 
-        .profile-cols {
+        form {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+
+          .mat-form-field {
+            display: block;
+            width: 100%;
+          }
+
+          .profile-cols {
           padding: 20px;
 
-          &:last-of-type {
-            margin-top: 40px;
+            &:last-of-type {
+              margin-top: 40px;
+            }
           }
         }
       }
     }
 }
+
