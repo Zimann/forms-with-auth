@@ -1,7 +1,7 @@
 <section class="control-panel">
     <div class="profile-section">
         <div class="profile-content-wrapper">
-            <i class="fas fa-user-circle"></i>
+            <i class="fas fa-user-circle" (click) = showProfileSection(true)></i>
             <i class="fas fa-cogs" (click) = showSettingsMenu()></i>
         </div>
         <app-profile-settings
@@ -9,7 +9,10 @@
                 [displayMenu]="showMenu"
         ></app-profile-settings>
     </div>
-    <app-profile-slide [slideIn]="setSlidingState()"></app-profile-slide>
+    <app-profile-slide
+            [slideIn]="setSlidingState()"
+            (slideOutEmitter)="showProfileSection($event)"
+    ></app-profile-slide>
 </section>
 <small class="favicon-text">Favicon provided by <a target="_blank" href="https://icons8.com">icons8.com</a> </small>
 <div class="bottom-separator"></div>

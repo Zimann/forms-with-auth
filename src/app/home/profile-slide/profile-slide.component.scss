@@ -3,19 +3,91 @@ section {
   position: absolute;
   left: -400px;
   top: 0;
-  height: 100%;
-  transition: all 0.3s ease-in;
+  height: 100vh;
+  transition: all 0.2s ease-in-out;
+  transition-delay: 0.1s;
   transform: translateZ(0);
-  background: yellow;
-  display: none;
 
   &.slide-in {
     left: 0
   }
 
     .profile-header {
-      background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+      display:flex;
+      align-items: flex-end;
+      background-color: #454c5d;
       height: 100px;
       width: 100%;
+
+      .profile-header-content {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: 10px;
+        position: relative;
+
+        i {
+          cursor: pointer;
+          color: white;
+          position: absolute;
+          left: 14px;
+          font-size: 40px;
+          background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        p {
+          margin: 0 auto 0 auto;
+          color: white;
+          font-size: 20px;
+        }
+      }
+    }
+
+    .profile-body {
+      display: flex;
+      justify-content: center;
+      height: 215px;
+      align-items: center;
+
+      .user-photo-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .user-overlay {
+          height: 147px;
+          width: 146px;
+          opacity: 0.8;
+          background-color: #454c5d;
+          position: absolute;
+          margin-top: 2px;
+          border-radius: 58%;
+        }
+
+        .overlay-content {
+          position: absolute;
+          text-align: center;
+          cursor: pointer;
+
+          p {
+            color: white;
+            margin: 0;
+          }
+
+          i {
+            font-size: 35px;
+          }
+        }
+
+        i {
+          font-size: 150px;
+          background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          cursor: pointer;
+        }
+      }
     }
 }

@@ -1,3 +1,19 @@
 <section [ngClass]="{'slide-in': slideIn}">
-    <div class="profile-header"></div>
+    <div class="profile-header">
+        <div class="profile-header-content">
+            <i class="fas fa-long-arrow-alt-left" (click)="slideOut()"></i>
+            <p>Profile</p>
+        </div>
+    </div>
+    <div class="profile-body">
+        <div class="user-photo-section">
+            <div class="user-overlay">
+            </div>
+            <div class="overlay-content">
+                <p>Profile picture</p>
+                <i class="fas fa-images"></i>
+            </div>
+            <i class="fas fa-user-circle"></i>
+        </div>
+    </div>
 </section>

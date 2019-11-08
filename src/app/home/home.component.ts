@@ -12,7 +12,6 @@ export class HomeComponent implements OnInit {
 
   showMenu = false;
   bringInSlide = false;
-  outerClicksDetected: boolean;
   outSideClickSubj: Subscription;
   listenForOutsideClicks$ = fromEvent(document, 'click');
 
@@ -52,7 +51,7 @@ export class HomeComponent implements OnInit {
           .pipe(take(2))
           .subscribe(event => {
         currentTarget = event.target as Element;
-        if (currentTarget.className !== 'settings-list-item' && currentTarget.className !== 'fas fa-cogs') {
+        if (currentTarget.className !== 'fas fa-cogs') {
           event.preventDefault();
           this.showMenu = false;
         }

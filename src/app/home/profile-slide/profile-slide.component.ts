@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-profile-slide',
@@ -8,8 +8,13 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ProfileSlideComponent implements OnInit {
 
   @Input() slideIn: boolean;
+  @Output() slideOutEmitter = new EventEmitter<boolean>();
 
   constructor() { }
+
+  slideOut() {
+    this.slideOutEmitter.emit(false);
+  }
 
   ngOnInit() {
   }
