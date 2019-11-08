@@ -1,8 +1,8 @@
-<div class="settings-menu" appClickOutside
+<div class="settings-menu"
         [ngClass]="{'show-settings-menu': displayMenu}">
     <ul>
-        <li (click)="showProfile()">Profile</li>
-        <li>Settings</li>
-        <li (click)="logOut()">Logout</li>
+        <li class="settings-list-item" (click)="showProfile()">Profile</li>
+        <li class="settings-list-item">Settings</li>
+        <li class="settings-list-item" (click)="logOut()">Logout</li>
     </ul>
 </div>

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
-import {timer} from 'rxjs';
+import {fromEvent, Subscription, timer} from 'rxjs';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -12,10 +12,13 @@ export class HomeComponent implements OnInit {
 
   showMenu = false;
   bringInSlide = false;
+  outerClicksDetected: boolean;
+  outSideClickSubj: Subscription;
+  listenForOutsideClicks$ = fromEvent(document, 'click');
+
   constructor(private router: Router) { }
 
   ngOnInit() {
-
     // route user back to the authentication page once the token expires
     const tokenExpiryTime = Number(localStorage.getItem('tokenExpiry')) * 1000;
     const tokenExpiry$ = timer(tokenExpiryTime);
@@ -41,8 +44,24 @@ export class HomeComponent implements OnInit {
   }
 
   showSettingsMenu() {
-    console.log('clicked');
     this.showMenu = !this.showMenu;
+    if (this.showMenu === true) {
+      let currentTarget: Element;
+      // listen for clicks outside the settings menu
+      this.outSideClickSubj = this.listenForOutsideClicks$
+          .pipe(take(2))
+          .subscribe(event => {
+        currentTarget = event.target as Element;
+        if (currentTarget.className !== 'settings-list-item' && currentTarget.className !== 'fas fa-cogs') {
+          event.preventDefault();
+          this.showMenu = false;
+        }
+      });
+    } else {
+      if (this.outSideClickSubj) {
+        this.outSideClickSubj.unsubscribe();
+      }
+    }
   }
 }
 
