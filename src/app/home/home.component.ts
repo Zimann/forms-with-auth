@@ -1,5 +1,7 @@
-import {Component, ElementRef, HostBinding, HostListener, OnInit, Renderer2} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {AuthService} from '../services/auth.service';
+import {timer} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +12,19 @@ export class HomeComponent implements OnInit {
 
   showMenu = false;
   bringInSlide = false;
-  constructor(private router: Router,
-              private renderer: Renderer2) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+
+    // route user back to the authentication page once the token expires
+    const tokenExpiryTime = Number(localStorage.getItem('tokenExpiry')) * 1000;
+    const tokenExpiry$ = timer(tokenExpiryTime);
+    tokenExpiry$.subscribe(() => {
+      localStorage.clear();
+    });
+    if (Object.keys(localStorage).length === 0) {
+      this.router.navigate(['/authentication']);
+    }
   }
 
   logOut() {
