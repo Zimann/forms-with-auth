@@ -1,4 +1,5 @@
 @import '../forms/common/common-favicon.scss';
+@import '../general-style/general-style';
 
 section {
   height: 100%;
@@ -10,7 +11,7 @@ section {
     height:100px;
     position: relative;
     width: 100%;
-    background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+    background-image: $orange-gradient;
 
     .profile-content-wrapper {
       width: 90%;
@@ -27,7 +28,7 @@ section {
         transition: all .2s ease-in-out;
 
         &:hover {
-          color: #454c5d;
+          color: $base-text-color;
         }
 
         &:nth-of-type(1) {
@@ -44,6 +45,6 @@ section {
   width: calc(100vw - 400px);
   left: 400px;
   height: 6px;
-  background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+  background-image: $orange-gradient;
 
 }

@@ -1,3 +1,5 @@
+@import '../src/app/general-style/general-style.scss';
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body {
@@ -22,3 +24,48 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-form-field-underline {
   height: 0 !important;
 }
+
+.mat-focused .mat-form-field-label {
+
+  .mat-form-field-label {
+    color: $base-text-color;
+  }
+}
+
+input.mat-input-element {
+  color: $base-text-color;
+  padding-left: 20px;
+}
+
+.mat-focused {
+  .mat-form-field-underline {
+    .mat-form-field-ripple{
+      background: $base-text-color;
+      width: calc(100% - 40px);
+      margin-left: 20px;
+    }
+  }
+}
+
+.mat-form-field-invalid {
+  .mat-form-field-underline {
+    .mat-form-field-ripple {
+      background: transparent;
+    }
+  }
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  color: $base-text-color;
+}
+
+.mat-form-field {
+  .mat-form-field-invalid {
+    .mat-form-field-ripple {
+      .mat-accent {
+        background-color: blue !important;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,15 @@
+
+/* Base text color and background gradients */
+$base-text-color: #454c5d;
+$orange-gradient: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+
+
+/* Form Validation classes */
+
+.hide-input-validation {
+  display: none;
+}
+
+.show-update-user {
+  display: block;
+}

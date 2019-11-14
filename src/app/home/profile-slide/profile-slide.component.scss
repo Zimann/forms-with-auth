@@ -1,3 +1,5 @@
+@import '../../general-style/general-style.scss';
+
 section {
   width: 400px;
   position: absolute;
@@ -15,7 +17,7 @@ section {
     .profile-header {
       display:flex;
       align-items: flex-end;
-      background-color: #454c5d;
+      background-color: $base-text-color;
       height: 100px;
       width: 100%;
 
@@ -29,11 +31,10 @@ section {
 
         i {
           cursor: pointer;
-          color: white;
           position: absolute;
           left: 14px;
           font-size: 27px;
-          background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+          background-image: $orange-gradient;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
@@ -62,7 +63,7 @@ section {
           height: 147px;
           width: 146px;
           opacity: 0.8;
-          background-color: #454c5d;
+          background-color: $base-text-color;
           position: absolute;
           margin-top: 2px;
           border-radius: 58%;
@@ -84,7 +85,7 @@ section {
 
         i {
           font-size: 150px;
-          background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+          background-image: $orange-gradient;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
@@ -99,10 +100,63 @@ section {
           display: flex;
           justify-content: center;
           flex-wrap: wrap;
+          position: relative;
+
+          button {
+            position: absolute;
+            z-index: 1;
+            border: none;
+            right: 15px;
+            top: 20px;
+            background: transparent;
+            cursor: pointer;
+            transition: all .1s ease-in-out;
+
+            &.hide-submit-button {
+              opacity: 0;
+              cursor: default;
+            }
+
+            &:disabled {
+               i {
+                 color: grey;
+                 cursor: default;
+               }
+            }
+
+            &:focus {
+              outline: none;
+            }
+
+            i {
+              font-size: 18px;
+              background: $orange-gradient;
+              background: transparent;
+              color: $base-text-color;
+            }
+          }
+
+          &:last-of-type {
+            margin-top: 50px;
+          }
+
 
           .mat-form-field {
+            background: rgba(29, 226, 217, 0.13);
             display: block;
-            width: 80%;
+            width: 100%;
+            transition: all .2s linear !important;
+            box-shadow: 1px 2px 5px -3px rgba(69, 76, 93, 0.75);
+
+            mat-label {
+                padding-left: 20px;
+            }
+          }
+
+          .mat-focused {
+            transition: all .1s linear;
+            background: none;
+            box-shadow: none;
           }
 
           .profile-cols {
@@ -111,6 +165,27 @@ section {
             &:last-of-type {
               margin-top: 40px;
             }
+          }
+
+          &:first-of-type {
+
+            small {
+              position: absolute;
+              top: 35px;
+              left: 18px;
+              font-size: 12px;
+              color: #ff5858;
+
+              &:last-of-type {
+                display: none;
+                top: 57px;
+                color: $base-text-color;
+              }
+            }
+          }
+
+          input {
+            width: 83%;
           }
         }
       }
