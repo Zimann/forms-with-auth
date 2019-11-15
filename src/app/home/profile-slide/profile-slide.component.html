@@ -15,24 +15,24 @@
             </div>
             <i class="fas fa-user-circle"></i>
         </div>
-        <div class="user-custom-cols">
+        <div class="user-input-cols">
+
             <form [formGroup]="nameForm" (ngSubmit)="onSubmitUserName()">
                 <div *ngIf="!editUserNameClicked" class="field-overlay"></div>
                 <small class="description-label">Your Name</small>
                 <mat-form-field floatLabel="never" class="md-no-float">
                     <mat-label>Your Name</mat-label>
-                    <input #userInput id="user_name" matInput formControlName="user_name" type="text">
-                    <mat-placeholder>Your Name</mat-placeholder>
+                    <input #userInput id="user_name" matInput formControlName="user_name" type="text" tabindex="-1">
                     <small [class.hide-input-validation]="hideError">
                         Maximum 35 chars allowed
                     </small>
                     <small *ngIf="
-                    hideDuplicateCheck &&
+                    hideUsernameCheck &&
                     presentUsername === (userNameTracker$ | async) &&
                     presentUsername.length !== 0">
                         Make sure to use a different username!
                     </small>
-                    <small [class.show-update-user]="showUpdatedSuccess">
+                    <small [class.show-update-user]="showUpdatedName">
                         Updated!
                     </small>
                 </mat-form-field>
@@ -44,15 +44,30 @@
                 </button>
                 <i *ngIf="!editUserNameClicked" (click)=activateUserInput() class="fas fa-user-edit"></i>
             </form>
-            <form action="" [formGroup]="statusForm">
-                <mat-form-field>
+
+            <form action="" [formGroup]="statusForm" (ngSubmit)="onSubmitStatus()">
+                <div *ngIf="!editStatusClicked" class="field-overlay"></div>
+                <mat-form-field floatLabel="never">
+                    <small class="description-label">Your Status</small>
                     <mat-label>Your status</mat-label>
-                    <input id="status" matInput type="text" formControlName="status" type="text">
-                    <mat-placeholder>Something here</mat-placeholder>
+                    <input #statusInput id="status" matInput formControlName="status" type="text" tabindex="-1">
+                    <small *ngIf="
+                    hideStatusCheck &&
+                    presentStatus === (statusTracker$ | async) &&
+                    presentStatus.length !== 0">
+                        Make sure to use a different status!
+                    </small>
+                    <small [class.show-update-user]="showUpdatedStatus">
+                        Updated!
+                    </small>
                 </mat-form-field>
-                <button type="submit">
-                    <i class="fas fa-check-circle"></i>
+                <button type="submit" [disabled]="
+                presentStatus === (statusTracker$ | async) ||
+                (statusTracker$| async).length < 1 ||
+                (statusTracker$ | async)=== undefined">
+                    <i *ngIf="editStatusClicked" class="fas fa-check-circle"></i>
                 </button>
+                <i *ngIf="!editStatusClicked" (click)=activateStatusInput() class="fas fa-user-edit"></i>
             </form>
         </div>
     </div>

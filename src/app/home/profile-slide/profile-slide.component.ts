@@ -13,17 +13,25 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
   @Input() slideIn: boolean;
   @Output() slideOutEmitter = new EventEmitter<boolean>();
   @ViewChild('userInput', {static: false}) userInput: ElementRef;
-  @ViewChild('userIcon', {static: false}) userIcon: ElementRef;
+  @ViewChild('statusInput', {static: false}) statusInput: ElementRef;
+
   private destroyed$ = new ReplaySubject(1);
+  private nameForm: FormGroup;
+  private statusForm: FormGroup;
+
   public userNameTracker$ = new BehaviorSubject<string>('');
+  public statusTracker$ = new BehaviorSubject<string>('');
   public hideError = true;
   public userNameSubmitted = false;
+  public statusSubmitted = false;
   public editUserNameClicked = false;
+  public editStatusClicked = false;
   public showUpdatedName = false;
+  public showUpdatedStatus = false;
   public presentUsername: string;
-  public nameForm: FormGroup;
-  public statusForm: FormGroup;
-  public hideDuplicateCheck = true;
+  public presentStatus: string;
+  public hideUsernameCheck = true;
+  public hideStatusCheck = true;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -31,7 +39,7 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
     return this.nameForm.get('user_name');
   }
 
-  get userStatus() {
+  get status() {
     return this.statusForm.get('status');
   }
 
@@ -51,6 +59,12 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroyed$))
         .subscribe(value => {
           this.userNameTracker$.next(value.user_name);
+        });
+
+    this.statusForm.valueChanges
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe(value => {
+          this.statusTracker$.next(value.status);
         });
   }
 
@@ -79,10 +93,28 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
     }
   }
 
+  onSubmitStatus() {
+    if (this.statusInput.nativeElement.value === this.presentStatus) {
+      this.editStatusClicked = true;
+      return;
+    }
+    // the call to the server should be placed here
+    // the below actions should take place if the request was successful
+    this.showUpdatedStatus = true;
+    this.resetStatusInputState();
+
+    // hide the confirmation for less UI clutter
+    setTimeout(() => {
+      this.showUpdatedStatus = false;
+    }, 1500);
+  }
+
   slideOut() {
     this.slideOutEmitter.emit(false);
     this.resetUserInputState();
-    this.hideDuplicateCheck = false;
+    this.resetStatusInputState();
+    this.hideUsernameCheck = false;
+    this.hideStatusCheck = false;
 
   }
 
@@ -93,13 +125,27 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
     this.userInput.nativeElement.blur();
   }
 
+  resetStatusInputState() {
+    this.statusSubmitted = !this.statusSubmitted;
+    this.editStatusClicked = false;
+    this.statusInput.nativeElement.blur();
+  }
+
   // executed when clicking the 'edit' icon
   activateUserInput() {
     this.userInput.nativeElement.focus();
     this.showUpdatedName = false;
     this.editUserNameClicked = true;
     this.presentUsername = this.userInput.nativeElement.value;
-    this.hideDuplicateCheck = true;
+    this.hideUsernameCheck = true;
+  }
+
+  activateStatusInput() {
+    this.statusInput.nativeElement.focus();
+    this.showUpdatedStatus = false;
+    this.editStatusClicked = true;
+    this.presentStatus = this.statusInput.nativeElement.value;
+    this.hideStatusCheck = true;
   }
 
   ngOnDestroy(): void {
