@@ -1,15 +1,14 @@
 
-/* Base text color and background gradients */
+/* Base text colors, transitions and background gradients */
 $base-text-color: #454c5d;
 $orange-gradient: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+$confirmation-color: #27b1a4;
+$default-transition: all .1s linear;
+$input-text-color: #ff5711;
 
 
 /* Form Validation classes */
 
 .hide-input-validation {
   display: none;
-}
-
-.show-update-user {
-  display: block;
 }

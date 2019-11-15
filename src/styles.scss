@@ -33,14 +33,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 input.mat-input-element {
-  color: $base-text-color;
+  color: $input-text-color;
   padding-left: 20px;
+  caret-color: $input-text-color;
 }
 
 .mat-focused {
   .mat-form-field-underline {
     .mat-form-field-ripple{
-      background: $base-text-color;
+      background: $input-text-color;
       width: calc(100% - 40px);
       margin-left: 20px;
     }
@@ -59,13 +60,9 @@ input.mat-input-element {
   color: $base-text-color;
 }
 
-.mat-form-field {
-  .mat-form-field-invalid {
-    .mat-form-field-ripple {
-      .mat-accent {
-        background-color: blue !important;
-      }
+  .mat-focused {
+    .mat-form-field-label {
+      color: $input-text-color !important;
     }
   }
-}
 

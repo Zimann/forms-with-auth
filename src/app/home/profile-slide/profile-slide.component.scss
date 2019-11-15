@@ -14,181 +14,215 @@ section {
     left: 0
   }
 
-    .profile-header {
-      display:flex;
-      align-items: flex-end;
-      background-color: $base-text-color;
-      height: 100px;
-      width: 100%;
+  .profile-header {
+    display:flex;
+    align-items: flex-end;
+    background-color: $base-text-color;
+    height: 100px;
+    width: 100%;
 
-      .profile-header-content {
-        display: flex;
-        width: 100%;
-        justify-content: space-around;
-        align-items: center;
-        padding-bottom: 10px;
-        position: relative;
+    .profile-header-content {
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 10px;
+      position: relative;
+
+      i {
+        cursor: pointer;
+        position: absolute;
+        left: 14px;
+        font-size: 27px;
+        background-image: $orange-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      p {
+        margin: 0 auto 0 auto;
+        color: white;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .profile-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .user-photo-section {
+      cursor: pointer;
+      display: flex;
+      margin: 50px 0 50px 0;
+      align-items: center;
+      justify-content: center;
+
+      .user-overlay {
+        height: 147px;
+        width: 146px;
+        opacity: 0.8;
+        background-color: $base-text-color;
+        position: absolute;
+        margin-top: 2px;
+        border-radius: 58%;
+      }
+
+      .overlay-content {
+        position: absolute;
+        text-align: center;
+
+        p {
+          color: white;
+          margin: 0;
+        }
 
         i {
-          cursor: pointer;
-          position: absolute;
-          left: 14px;
-          font-size: 27px;
-          background-image: $orange-gradient;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+          font-size: 35px;
         }
-        p {
-          margin: 0 auto 0 auto;
-          color: white;
-          font-size: 20px;
-        }
+      }
+
+      i {
+        font-size: 150px;
+        background-image: $orange-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
     }
 
-    .profile-body {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
 
-      .user-photo-section {
-        cursor: pointer;
+    .user-custom-cols {
+      width: 100%;
+
+      form {
+        width: 100%;
         display: flex;
-        margin: 50px 0 50px 0;
-        align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
 
-        .user-overlay {
-          height: 147px;
-          width: 146px;
-          opacity: 0.8;
-          background-color: $base-text-color;
+        .field-overlay {
           position: absolute;
-          margin-top: 2px;
-          border-radius: 58%;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
         }
 
-        .overlay-content {
+        button {
           position: absolute;
-          text-align: center;
+          z-index: 2;
+          border: none;
+          right: 15px;
+          top: 20px;
+          background: transparent;
+          cursor: pointer;
+          transition: $default-transition;
 
-          p {
-            color: white;
-            margin: 0;
+          &:disabled {
+             i {
+               color: grey;
+               cursor: default;
+             }
+          }
+
+          &:focus {
+            outline: none;
           }
 
           i {
-            font-size: 35px;
-          }
-        }
-
-        i {
-          font-size: 150px;
-          background-image: $orange-gradient;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-      }
-
-
-      .user-custom-cols {
-        width: 100%;
-
-        form {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
-          position: relative;
-
-          button {
-            position: absolute;
-            z-index: 1;
-            border: none;
-            right: 15px;
-            top: 20px;
+            font-size: 18px;
+            background: $orange-gradient;
             background: transparent;
-            cursor: pointer;
-            transition: all .1s ease-in-out;
+            color: $base-text-color;
+          }
+        }
 
-            &.hide-submit-button {
+        i.fa-user-edit {
+          position: absolute;
+          right: 17px;
+          top: 21px;
+          cursor: pointer;
+          z-index: 3;
+          transition: $default-transition
+        }
+
+        &:last-of-type {
+          margin-top: 50px;
+        }
+
+
+        .mat-form-field {
+          background: rgba(29, 226, 217, 0.13);
+          display: block;
+          width: 100%;
+          transition: all .2s linear !important;
+          box-shadow: 1px 2px 5px -3px rgba(69, 76, 93, 0.75);
+
+          small {
+            &:last-of-type {
+              top: 60px;
+              font-size: 14px;
+              color: $confirmation-color;
+              transition: $default-transition;
               opacity: 0;
-              cursor: default;
-            }
-
-            &:disabled {
-               i {
-                 color: grey;
-                 cursor: default;
-               }
-            }
-
-            &:focus {
-              outline: none;
-            }
-
-            i {
-              font-size: 18px;
-              background: $orange-gradient;
-              background: transparent;
-              color: $base-text-color;
             }
           }
+
+          mat-label {
+              padding-left: 20px;
+          }
+        }
+
+        .mat-focused {
+          transition: $default-transition;
+          background: none;
+          box-shadow: none;
+        }
+
+        .profile-cols {
+        padding: 20px;
 
           &:last-of-type {
-            margin-top: 50px;
+            margin-top: 40px;
           }
+        }
 
+        &:first-of-type {
 
-          .mat-form-field {
-            background: rgba(29, 226, 217, 0.13);
-            display: block;
-            width: 100%;
-            transition: all .2s linear !important;
-            box-shadow: 1px 2px 5px -3px rgba(69, 76, 93, 0.75);
+          small {
+            position: absolute;
+            top: 35px;
+            left: 18px;
+            font-size: 12px;
+            color: #ff7241;
 
-            mat-label {
-                padding-left: 20px;
+            &.description-label {
+              display: block;
+              top: -22px;
+              font-size: 14px;
+              color: #ff5711;
+            }
+
+            &.show-update-user {
+              opacity: 1 !important;
             }
           }
+        }
 
-          .mat-focused {
-            transition: all .1s linear;
-            background: none;
-            box-shadow: none;
+        input {
+          width: 83%;
+
+          &:read-only {
+            cursor: default;
           }
+        }
 
-          .profile-cols {
-          padding: 20px;
-
-            &:last-of-type {
-              margin-top: 40px;
-            }
-          }
-
-          &:first-of-type {
-
-            small {
-              position: absolute;
-              top: 35px;
-              left: 18px;
-              font-size: 12px;
-              color: #ff5858;
-
-              &:last-of-type {
-                display: none;
-                top: 57px;
-                color: $base-text-color;
-              }
-            }
-          }
-
-          input {
-            width: 83%;
-          }
+        .hide-input-icon {
+          display: none;
         }
       }
     }
+  }
 }
 

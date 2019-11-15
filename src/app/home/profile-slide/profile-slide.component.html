@@ -17,18 +17,32 @@
         </div>
         <div class="user-custom-cols">
             <form [formGroup]="nameForm" (ngSubmit)="onSubmitUserName()">
-                <mat-form-field>
-                    <mat-label [style]="{'display': userNameTracker$ | async)}">{{(userNameTracker$ | async).length > 0 ? (userNameTracker$ | async) : 'Your Name' }}</mat-label>
-                    <input id="user_name" matInput type="text" formControlName="user_name" type="text">
+                <div *ngIf="!editUserNameClicked" class="field-overlay"></div>
+                <small class="description-label">Your Name</small>
+                <mat-form-field floatLabel="never" class="md-no-float">
+                    <mat-label>Your Name</mat-label>
+                    <input #userInput id="user_name" matInput formControlName="user_name" type="text">
                     <mat-placeholder>Your Name</mat-placeholder>
                     <small [class.hide-input-validation]="hideError">
-                        Maximum 5 chars allowed
+                        Maximum 35 chars allowed
                     </small>
-                    <small [class.show-update-user]="showUpdatedSuccess">Updated!</small>
+                    <small *ngIf="
+                    hideDuplicateCheck &&
+                    presentUsername === (userNameTracker$ | async) &&
+                    presentUsername.length !== 0">
+                        Make sure to use a different username!
+                    </small>
+                    <small [class.show-update-user]="showUpdatedSuccess">
+                        Updated!
+                    </small>
                 </mat-form-field>
-                <button [class.hide-submit-button]="(userNameTracker$ | async).length === 0" type="submit">
-                    <i class="fas fa-check-circle"></i>
+                <button type="submit" [disabled]="
+                presentUsername === (userNameTracker$ | async) ||
+                (userNameTracker$| async).length < 1 ||
+                (userNameTracker$ | async)=== undefined">
+                    <i *ngIf="editUserNameClicked" class="fas fa-check-circle"></i>
                 </button>
+                <i *ngIf="!editUserNameClicked" (click)=activateUserInput() class="fas fa-user-edit"></i>
             </form>
             <form action="" [formGroup]="statusForm">
                 <mat-form-field>
