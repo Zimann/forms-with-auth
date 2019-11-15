@@ -53,11 +53,29 @@ section {
     align-items: center;
 
     .user-photo-section {
-      cursor: pointer;
       display: flex;
       margin: 50px 0 50px 0;
       align-items: center;
       justify-content: center;
+      position: relative;
+
+      .upload-profile-photo {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+
+        &::-webkit-file-upload-button {
+          opacity: 0;
+          cursor: pointer;
+          height: 100%;
+          width: 100%;
+        }
+
+        &:before {
+          content: '';
+        }
+      }
 
       .user-overlay {
         height: 147px;
@@ -71,6 +89,7 @@ section {
 
       .overlay-content {
         position: absolute;
+        z-index: 0;
         text-align: center;
 
         p {

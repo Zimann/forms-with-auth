@@ -9,6 +9,7 @@
         <div class="user-photo-section">
             <div class="user-overlay">
             </div>
+            <input class="upload-profile-photo" type="file" accept="image/*">
             <div class="overlay-content">
                 <p>Profile picture</p>
                 <i class="fas fa-images"></i>
@@ -16,10 +17,9 @@
             <i class="fas fa-user-circle"></i>
         </div>
         <div class="user-input-cols">
-
             <form [formGroup]="nameForm" (ngSubmit)="onSubmitUserName()">
                 <div *ngIf="!editUserNameClicked" class="field-overlay"></div>
-                <small class="description-label">Your Name</small>
+                <small class="description-label">Name</small>
                 <mat-form-field floatLabel="never" class="md-no-float">
                     <mat-label>Your Name</mat-label>
                     <input #userInput id="user_name" matInput formControlName="user_name" type="text" tabindex="-1">
@@ -44,11 +44,10 @@
                 </button>
                 <i *ngIf="!editUserNameClicked" (click)=activateUserInput() class="fas fa-user-edit"></i>
             </form>
-
-            <form action="" [formGroup]="statusForm" (ngSubmit)="onSubmitStatus()">
+            <form [formGroup]="statusForm" (ngSubmit)="onSubmitStatus()">
                 <div *ngIf="!editStatusClicked" class="field-overlay"></div>
                 <mat-form-field floatLabel="never">
-                    <small class="description-label">Your Status</small>
+                    <small class="description-label">Status</small>
                     <mat-label>Your status</mat-label>
                     <input #statusInput id="status" matInput formControlName="status" type="text" tabindex="-1">
                     <small *ngIf="
