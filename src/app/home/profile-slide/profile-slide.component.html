@@ -9,8 +9,17 @@
         <div class="user-photo-section">
             <div class="user-overlay">
             </div>
-            <input class="upload-profile-photo" type="file" accept="image/*">
-            <div class="overlay-content">
+            <input #profPic
+                   accept="image/jpeg, image/png"
+                   class="upload-profile-photo"
+                   type="file"
+                   (change)="processFile(profPic)">
+            <img #profileImage
+                 [ngClass]="{'resize-img':profileImageResize }"
+                 [src]="imageSource$ | async"
+                 id="profile_pic"
+                 alt="{{(imageSource$ | async) === null ? '' : 'profile image'}}">
+            <div *ngIf="!(imageSource$ | async)" class="overlay-content">
                 <p>Profile picture</p>
                 <i class="fas fa-images"></i>
             </div>
