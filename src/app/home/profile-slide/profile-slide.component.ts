@@ -15,39 +15,45 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
     @Output() slideOutEmitter = new EventEmitter<boolean>();
     @ViewChild('userInput', {static: false}) userInput: ElementRef;
     @ViewChild('statusInput', {static: false}) statusInput: ElementRef;
-    @ViewChild('profPic', {static: false}) profPic: ElementRef;
+    @ViewChild('forgotPass', {static: false}) forgotPassRef: ElementRef;
     @ViewChild('profileImage', {static: false}) profileImage: ElementRef;
 
-    private destroyed$ = new ReplaySubject(1);
     private nameForm: FormGroup;
     private statusForm: FormGroup;
+    private forgotPasswordForm: FormGroup;
 
+    private destroyed$ = new ReplaySubject(1);
     public userNameTracker$ = new BehaviorSubject<string>('');
     public statusTracker$ = new BehaviorSubject<string>('');
-    public hideError = true;
+    public imageSource$ = new Subject();
+
     public userNameSubmitted = false;
     public statusSubmitted = false;
     public editUserNameClicked = false;
     public editStatusClicked = false;
     public showUpdatedName = false;
     public showUpdatedStatus = false;
-    public presentUsername: string;
-    public presentStatus: string;
+    public bringInForgottenPass = false;
+    public showEmailSent = false;
+    public profileImageResize = false;
+
+    public hideError = true;
     public hideUsernameCheck = true;
     public hideStatusCheck = true;
-    public profileImageResize = false;
-    public imageSource$ = new Subject();
+
+    public presentUsername: string;
+    public presentStatus: string;
 
     constructor(private formBuilder: FormBuilder,
                 private imageService: ImageService) {
     }
 
-    get userName() {
-        return this.nameForm.get('user_name');
-    }
-
     get status() {
         return this.statusForm.get('status');
+    }
+
+    get forgottenPassword() {
+        return this.forgotPasswordForm.get('forgottenPassword');
     }
 
     ngOnInit() {
@@ -58,6 +64,13 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
         });
         this.statusForm = this.formBuilder.group({
             status: ['']
+        });
+
+        this.forgotPasswordForm = this.formBuilder.group({
+            forgottenPassword: ['', [
+                Validators.email,
+                Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')
+            ]]
         });
 
         // this is where we get data for our two user related inputs
@@ -72,47 +85,6 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
             .subscribe(value => {
                 this.statusTracker$.next(value.status);
             });
-    }
-
-
-    // send the updated user name to the server
-    onSubmitUserName() {
-
-        if (this.userName.invalid) {
-            this.hideError = false;
-        } else {
-            // detect if the same username is used after editing
-            // prevent unnecessary server calls
-            if (this.userInput.nativeElement.value === this.presentUsername) {
-                this.editUserNameClicked = true;
-                return;
-            }
-            // the call to the server should be placed here
-            // the below actions should take place if the request was successful
-            this.showUpdatedName = true;
-            this.resetUserInputState();
-
-            // hide the confirmation for less UI clutter
-            setTimeout(() => {
-                this.showUpdatedName = false;
-            }, 1500);
-        }
-    }
-
-    onSubmitStatus() {
-        if (this.statusInput.nativeElement.value === this.presentStatus) {
-            this.editStatusClicked = true;
-            return;
-        }
-        // the call to the server should be placed here
-        // the below actions should take place if the request was successful
-        this.showUpdatedStatus = true;
-        this.resetStatusInputState();
-
-        // hide the confirmation for less UI clutter
-        setTimeout(() => {
-            this.showUpdatedStatus = false;
-        }, 1500);
     }
 
     slideOut() {
@@ -146,6 +118,7 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
         this.hideUsernameCheck = true;
     }
 
+    // executed when clicking the 'edit' icon
     activateStatusInput() {
         this.statusInput.nativeElement.focus();
         this.showUpdatedStatus = false;
@@ -154,7 +127,7 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
         this.hideStatusCheck = true;
     }
 
-    processFile(imageInput: HTMLInputElement) {
+    processImageFile(imageInput: HTMLInputElement) {
         let selectedImage: File;
         selectedImage = imageInput.files[0];
 
@@ -162,18 +135,69 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
         if (selectedImage) {
             fileReader.readAsDataURL(selectedImage);
             fileReader.onloadend = () => {
-            // resize images based on width
-            const imageReference = new Image();
-            imageReference.src = String(fileReader.result);
-            imageReference.onload = () => {
-                this.profileImageResize = imageReference.width < 1300;
-            };
-            this.imageSource$.next(fileReader.result);
+                // resize images based on width
+                const imageReference = new Image();
+                imageReference.src = String(fileReader.result);
+                imageReference.onload = () => {
+                    this.profileImageResize = imageReference.width < 1300;
+                };
+                this.imageSource$.next(fileReader.result);
 
-            // pass encoded image data to the service
-            this.imageService.uploadProfilePic(fileReader.result);
-        };
+                // pass encoded image data to the service
+                this.imageService.uploadProfilePic(fileReader.result);
+            };
         }
+    }
+
+    showForgotPassword() {
+        this.bringInForgottenPass = !this.bringInForgottenPass;
+        this.forgotPassRef.nativeElement.focus();
+    }
+
+    // methods where the calls to the server will be made
+    onSubmitForgottenPass() {
+        // send email with password reset
+        this.showEmailSent = true;
+        this.forgotPassRef.nativeElement.blur();
+        setTimeout(() => {
+            this.showEmailSent = false;
+            this.bringInForgottenPass = false;
+            this.forgotPassRef.nativeElement.value = '';
+        }, 500);
+    }
+
+    onSubmitUserName() {
+        // detect if the same username is used after editing
+        // prevent unnecessary server calls
+        if (this.userInput.nativeElement.value === this.presentUsername) {
+            this.editUserNameClicked = true;
+            return;
+        }
+        // the call to the server should be placed here
+        // the below actions should take place if the request was successful
+        this.showUpdatedName = true;
+        this.resetUserInputState();
+
+        // hide the confirmation for less UI clutter
+        setTimeout(() => {
+            this.showUpdatedName = false;
+        }, 1500);
+    }
+
+    onSubmitStatus() {
+        if (this.statusInput.nativeElement.value === this.presentStatus) {
+            this.editStatusClicked = true;
+            return;
+        }
+        // the call to the server should be placed here
+        // the below actions should take place if the request was successful
+        this.showUpdatedStatus = true;
+        this.resetStatusInputState();
+
+        // hide the confirmation for less UI clutter
+        setTimeout(() => {
+            this.showUpdatedStatus = false;
+        }, 1500);
     }
 
     ngOnDestroy(): void {

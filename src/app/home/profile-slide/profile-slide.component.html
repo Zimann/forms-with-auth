@@ -13,7 +13,7 @@
                    accept="image/jpeg, image/png"
                    class="upload-profile-photo"
                    type="file"
-                   (change)="processFile(profPic)">
+                   (change)="processImageFile(profPic)">
             <img #profileImage
                  [ngClass]="{'resize-img':profileImageResize }"
                  [src]="imageSource$ | async"
@@ -41,7 +41,7 @@
                     presentUsername.length !== 0">
                         Make sure to use a different username!
                     </small>
-                    <small [class.show-update-user]="showUpdatedName">
+                    <small [class.show-update-message]="showUpdatedName">
                         Updated!
                     </small>
                 </mat-form-field>
@@ -65,7 +65,7 @@
                     presentStatus.length !== 0">
                         Make sure to use a different status!
                     </small>
-                    <small [class.show-update-user]="showUpdatedStatus">
+                    <small [class.show-update-message]="showUpdatedStatus">
                         Updated!
                     </small>
                 </mat-form-field>
@@ -77,6 +77,22 @@
                 </button>
                 <i *ngIf="!editStatusClicked" (click)=activateStatusInput() class="fas fa-user-edit"></i>
             </form>
+            <p (click)=showForgotPassword() class="forgotten-password">Forgot password?</p>
+            <div [ngClass]="{'slide-in-forgotten':bringInForgottenPass}" class="forgot-password-section">
+                <form [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmitForgottenPass()">
+                    <mat-form-field floatLabel="never">
+                        <mat-label>Your email address</mat-label>
+                        <input  #forgotPass matInput formControlName="forgottenPassword" type="email" tabindex="-1">
+                        <button [disabled]="forgottenPassword.value === ''|| forgottenPassword.invalid" type="submit">
+                            <i class="fas fa-check-circle"></i>
+                        </button>
+                        <small [class.hide-input-validation]="forgottenPassword.valid">
+                            Please make sure to type in a valid email address!
+                        </small>
+                        <small class="forgot-pass-confirmation" [class.show-update-message]="showEmailSent">Email sent!</small>
+                    </mat-form-field>
+                </form>
+            </div>
         </div>
     </div>
 </section>

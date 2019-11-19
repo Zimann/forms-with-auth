@@ -17,8 +17,14 @@ html, body {
   opacity: 1; /* Firefox */
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /* Angular Material styling */
 .mat-form-field-underline {
@@ -40,7 +46,7 @@ input.mat-input-element {
 
 .mat-focused {
   .mat-form-field-underline {
-    .mat-form-field-ripple{
+    .mat-form-field-ripple {
       background: $input-text-color;
       width: calc(100% - 40px);
       margin-left: 20px;
@@ -60,9 +66,9 @@ input.mat-input-element {
   color: $base-text-color;
 }
 
-  .mat-focused {
-    .mat-form-field-label {
-      color: $input-text-color !important;
-    }
+.mat-focused {
+  .mat-form-field-label {
+    color: $input-text-color !important;
   }
+}
 

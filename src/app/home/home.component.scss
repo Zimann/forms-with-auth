@@ -1,6 +1,10 @@
 @import '../forms/common/common-favicon.scss';
 @import '../general-style/general-style';
 
+.control-panel {
+  overflow: hidden;
+}
+
 section {
   height: 100%;
   width: 400px;
