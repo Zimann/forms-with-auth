@@ -147,7 +147,7 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
                 const imageReference = new Image();
                 imageReference.src = String(fileReader.result);
                 imageReference.onload = () => {
-                    this.profileImageResize = imageReference.width < 1300;
+                    this.profileImageResize = imageReference.width > 1100 && imageReference.width < 1300 ;
                 };
                 this.imageSource$.next(fileReader.result);
 
