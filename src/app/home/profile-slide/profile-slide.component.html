@@ -35,7 +35,7 @@
                     <small [class.hide-input-validation]="hideError">
                         Maximum 35 chars allowed
                     </small>
-                    <small *ngIf="
+                    <small class="input-check" *ngIf="
                     hideUsernameCheck &&
                     presentUsername === (userNameTracker$ | async) &&
                     presentUsername.length !== 0">
@@ -59,7 +59,7 @@
                     <small class="description-label">Status</small>
                     <mat-label>Your status</mat-label>
                     <input #statusInput id="status" matInput formControlName="status" type="text" tabindex="-1">
-                    <small *ngIf="
+                    <small class="input-check" *ngIf="
                     hideStatusCheck &&
                     presentStatus === (statusTracker$ | async) &&
                     presentStatus.length !== 0">
@@ -77,19 +77,24 @@
                 </button>
                 <i *ngIf="!editStatusClicked" (click)=activateStatusInput() class="fas fa-user-edit"></i>
             </form>
-            <p (click)=showForgotPassword() class="forgotten-password">Forgot password?</p>
-            <div [ngClass]="{'slide-in-forgotten':bringInForgottenPass}" class="forgot-password-section">
-                <form [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmitForgottenPass()">
+            <p (click)=showChangePass() class="change-password">Change password</p>
+            <div [ngClass]="{'slide-in-password':bringInPassChange}" class="change-password-section">
+                <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmitChangePass()">
                     <mat-form-field floatLabel="never">
-                        <mat-label>Your email address</mat-label>
-                        <input  #forgotPass matInput formControlName="forgottenPassword" type="email" tabindex="-1">
-                        <button [disabled]="forgottenPassword.value === ''|| forgottenPassword.invalid" type="submit">
+                        <mat-label>Your new password</mat-label>
+                        <input name="initPassword"  #initialPasswordInput matInput formControlName="initPassword" type="password">
+                        <small *ngIf="initPassword.invalid" class="input-check">Your password is too short (min 9 chars allowed)</small>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="never">
+                        <mat-label>Confirm password</mat-label>
+                        <input #confirmPassInput appConfirmEqualValidator="initPassword" matInput formControlName="confirmedPass" type="password">
+                        <button [disabled]="confirmedPas.pristine || confirmedPas.value === ''|| confirmedPas.invalid" type="submit">
                             <i class="fas fa-check-circle"></i>
                         </button>
-                        <small [class.hide-input-validation]="forgottenPassword.valid">
-                            Please make sure to type in a valid email address!
+                        <small class="input-check" *ngIf="confirmedPas.errors?.notEqual">
+                            The two passwords don't match yet
                         </small>
-                        <small class="forgot-pass-confirmation" [class.show-update-message]="showEmailSent">Email sent!</small>
+                        <small class="forgot-pass-confirmation" [class.show-update-message]="showPassChanged">Password updated!</small>
                     </mat-form-field>
                 </form>
             </div>

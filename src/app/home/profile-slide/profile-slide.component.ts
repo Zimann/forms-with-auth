@@ -2,7 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, V
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BehaviorSubject, ReplaySubject, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {ImageService} from '../../image.service';
+import {ImageService} from '../../services/image.service';
 
 @Component({
     selector: 'app-profile-slide',
@@ -15,12 +15,13 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
     @Output() slideOutEmitter = new EventEmitter<boolean>();
     @ViewChild('userInput', {static: false}) userInput: ElementRef;
     @ViewChild('statusInput', {static: false}) statusInput: ElementRef;
-    @ViewChild('forgotPass', {static: false}) forgotPassRef: ElementRef;
+    @ViewChild('initialPasswordInput', {static: false}) initialPassRef: ElementRef;
+    @ViewChild('confirmPassInput', {static: false}) confirmPassRef: ElementRef;
     @ViewChild('profileImage', {static: false}) profileImage: ElementRef;
 
     private nameForm: FormGroup;
     private statusForm: FormGroup;
-    private forgotPasswordForm: FormGroup;
+    private changePasswordForm: FormGroup;
 
     private destroyed$ = new ReplaySubject(1);
     public userNameTracker$ = new BehaviorSubject<string>('');
@@ -33,8 +34,8 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
     public editStatusClicked = false;
     public showUpdatedName = false;
     public showUpdatedStatus = false;
-    public bringInForgottenPass = false;
-    public showEmailSent = false;
+    public bringInPassChange = false;
+    public showPassChanged = false;
     public profileImageResize = false;
 
     public hideError = true;
@@ -52,8 +53,12 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
         return this.statusForm.get('status');
     }
 
-    get forgottenPassword() {
-        return this.forgotPasswordForm.get('forgottenPassword');
+    get initPassword() {
+        return this.changePasswordForm.get('initPassword');
+    }
+
+    get confirmedPas() {
+        return this.changePasswordForm.get('confirmedPass');
     }
 
     ngOnInit() {
@@ -66,10 +71,12 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
             status: ['']
         });
 
-        this.forgotPasswordForm = this.formBuilder.group({
-            forgottenPassword: ['', [
-                Validators.email,
-                Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$')
+        this.changePasswordForm = this.formBuilder.group({
+            initPassword: ['', [
+                Validators.minLength(9)
+            ]],
+            confirmedPass: ['', [
+                Validators.minLength(9)
             ]]
         });
 
@@ -91,9 +98,10 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
         this.slideOutEmitter.emit(false);
         this.resetUserInputState();
         this.resetStatusInputState();
+        this.bringInPassChange = false;
+        this.changePasswordForm.reset();
         this.hideUsernameCheck = false;
         this.hideStatusCheck = false;
-
     }
 
     resetUserInputState() {
@@ -149,21 +157,24 @@ export class ProfileSlideComponent implements OnInit, OnDestroy {
         }
     }
 
-    showForgotPassword() {
-        this.bringInForgottenPass = !this.bringInForgottenPass;
-        this.forgotPassRef.nativeElement.focus();
+    showChangePass() {
+        this.bringInPassChange = !this.bringInPassChange;
+        this.initialPassRef.nativeElement.focus();
     }
 
     // methods where the calls to the server will be made
-    onSubmitForgottenPass() {
+    onSubmitChangePass() {
         // send email with password reset
-        this.showEmailSent = true;
-        this.forgotPassRef.nativeElement.blur();
+        this.changePasswordForm.reset();
+        this.showPassChanged = true;
+        this.initialPassRef.nativeElement.blur();
+        this.confirmPassRef.nativeElement.blur();
+
+
         setTimeout(() => {
-            this.showEmailSent = false;
-            this.bringInForgottenPass = false;
-            this.forgotPassRef.nativeElement.value = '';
-        }, 500);
+            this.showPassChanged = false;
+            this.bringInPassChange = false;
+        }, 1000);
     }
 
     onSubmitUserName() {

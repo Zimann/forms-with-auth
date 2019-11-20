@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
 import { ProfileSlideComponent } from './home/profile-slide/profile-slide.component';
 import {MaterialModule} from './material/material.module';
+import {ConfirmEqualValidatorDirective} from './shared/custom-directives/confirm-equal-validator.directive';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {MaterialModule} from './material/material.module';
     HomeComponent,
     ProfileSettingsComponent,
     ProfileSlideComponent,
+    ConfirmEqualValidatorDirective
   ],
   imports: [
     BrowserModule,

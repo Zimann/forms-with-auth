@@ -1,4 +1,4 @@
-@import '../../general-style/general-style.scss';
+@import '../../shared/general-style/general-style.scss';
 
 section {
   width: 400px;
@@ -56,7 +56,7 @@ section {
 
     .user-photo-section {
       display: flex;
-      margin: 50px 0 50px 0;
+      margin: 20px 0 20px 0;
       align-items: center;
       justify-content: center;
       position: relative;
@@ -126,6 +126,12 @@ section {
 
     .user-input-cols {
       width: 100%;
+
+      form {
+        &:not(:first-of-type) {
+          margin-top: 50px;
+        }
+      }
     }
 
     form {
@@ -180,16 +186,11 @@ section {
         transition: $default-transition
       }
 
-      &:last-of-type {
-        margin-top: 50px;
-      }
-
-
       .mat-form-field {
 
         small {
 
-          &:last-of-type {
+          &:not(.input-check) {
             top: 55px;
             font-size: 14px;
             color: $confirmation-color;
@@ -259,7 +260,7 @@ section {
     }
 
 
-    .forgotten-password {
+    .change-password {
       width: 95%;
       text-align: right;
       margin-left: auto;
@@ -269,7 +270,7 @@ section {
       cursor: pointer;
     }
 
-    .forgot-password-section {
+    .change-password-section {
       width: 100%;
       position: relative;
       transform: translateZ(0);
@@ -277,18 +278,16 @@ section {
       transition: all .3s ease-in-out;
 
       form {
-        margin-top: 0;
+
+        mat-form-field {
+          &:last-of-type {
+            margin-top: 20px;
+          }
+        }
 
         button {
-          position: absolute;
-          right: 16px;
           top: 6px;
-          font-size: 18px;
-          z-index: 1;
           cursor: pointer;
-          border: none;
-          background: none;
-          outline: none;
         }
       }
     }
