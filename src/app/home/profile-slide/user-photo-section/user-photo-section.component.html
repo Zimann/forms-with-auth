@@ -7,10 +7,10 @@
            type="file"
            (change)="processImageFile(profPic)">
     <img
-         [ngClass]="{'resize-img':profileImageResize }"
-         [src]="imageSource$ | async"
-         id="profile_pic"
-         alt="{{(imageSource$ | async) === null ? '' : 'profile image'}}">
+            [ngClass]="{'resize-img':profileImageResize }"
+            [src]="imageSource$ | async"
+            id="profile_pic"
+            alt="{{(imageSource$ | async) === null ? '' : 'profile image'}}">
     <div *ngIf="!(imageSource$ | async)" class="overlay-content">
         <p>Profile picture</p>
         <i class="fas fa-images"></i>

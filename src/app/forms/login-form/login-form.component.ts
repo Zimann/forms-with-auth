@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {ReplaySubject} from 'rxjs';
 import {AuthService} from '../../services/auth.service';
+import {CrossComponentService} from '../../services/cross-component.service';
 
 @Component({
   selector: 'app-login-form',
@@ -22,7 +23,8 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     password: true
   };
   constructor( private formBuild: FormBuilder,
-               private authService: AuthService) { }
+               private authService: AuthService,
+               private crossComponentService: CrossComponentService) { }
 
   get loginEmail() {
     return this.loginForm.get('email');
@@ -59,8 +61,13 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    /* Login Form validation
-   ----------------------------------------------------- */
+    this.crossComponentService.resetLoginForm$.subscribe(data => {
+      if (data) {
+        this.loginForm.reset();
+      }
+    });
+
+    // Login Form validation
     this.loginForm = this.formBuild.group({
       email: ['', [
         Validators.required,
@@ -90,6 +97,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyed$.next(true);
     this.destroyed$.complete();
+    this.crossComponentService.resetLoginForm$.unsubscribe();
   }
 
 }

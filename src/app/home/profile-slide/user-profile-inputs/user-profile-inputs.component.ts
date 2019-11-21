@@ -89,15 +89,15 @@ export class UserProfileInputsComponent implements OnInit, OnDestroy {
             });
 
         this.crossComponentService.slideOutToggle$.subscribe((data) => {
-           if (data) {
-               this.resetUserInputState();
-               this.resetStatusInputState();
-               this.changePasswordForm.reset();
+            if (data) {
+                this.resetUserInputState();
+                this.resetStatusInputState();
+                this.changePasswordForm.reset();
 
-               this.bringInPassChange = false;
-               this.hideUsernameCheck = false;
-               this.hideStatusCheck = false;
-           }
+                this.bringInPassChange = false;
+                this.hideUsernameCheck = false;
+                this.hideStatusCheck = false;
+            }
         });
         // this.resetUserInputState();
         // this.resetStatusInputState();
