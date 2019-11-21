@@ -15,6 +15,8 @@ import { ProfileSettingsComponent } from './home/profile-settings/profile-settin
 import { ProfileSlideComponent } from './home/profile-slide/profile-slide.component';
 import {MaterialModule} from './material/material.module';
 import {ConfirmEqualValidatorDirective} from './shared/custom-directives/confirm-equal-validator.directive';
+import { UserProfileInputsComponent } from './home/profile-slide/user-profile-inputs/user-profile-inputs.component';
+import { UserPhotoSectionComponent } from './home/profile-slide/user-photo-section/user-photo-section.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import {ConfirmEqualValidatorDirective} from './shared/custom-directives/confirm
     HomeComponent,
     ProfileSettingsComponent,
     ProfileSlideComponent,
-    ConfirmEqualValidatorDirective
+    ConfirmEqualValidatorDirective,
+    UserProfileInputsComponent,
+    UserPhotoSectionComponent
   ],
   imports: [
     BrowserModule,

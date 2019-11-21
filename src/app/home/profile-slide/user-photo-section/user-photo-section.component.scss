@@ -1,0 +1,70 @@
+@import '../../../shared/general-style/general-style';
+
+.user-photo-section {
+  display: flex;
+  margin: 20px 0 20px 0;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+
+  #profile_pic {
+    position: absolute;
+    height: 100%;
+
+    &.resize-img {
+      height: auto;
+      width: 100%;
+    }
+  }
+
+  .upload-profile-photo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    &::-webkit-file-upload-button {
+      opacity: 0;
+      cursor: pointer;
+      height: 100%;
+      width: 100%;
+    }
+
+    &:before {
+      content: '';
+    }
+  }
+
+  .user-overlay {
+    height: 147px;
+    width: 146px;
+    opacity: 0.8;
+    background-color: $base-text-color;
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .overlay-content {
+    position: absolute;
+    z-index: 0;
+    text-align: center;
+
+    p {
+      color: white;
+      margin: 0;
+    }
+
+    i {
+      font-size: 35px;
+    }
+  }
+
+  i {
+    font-size: 150px;
+    background-image: $orange-gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
