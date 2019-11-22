@@ -1,6 +1,6 @@
 h2 {
   color: #362843;
-  text-align:center;
+  text-align: center;
 }
 
 form {
@@ -36,16 +36,19 @@ form {
   }
 
   button {
-    background-color: #FF926B;
-    border-radius: 15px;
-    border: 1px solid transparent;
-    margin-top: 20px;
-    font-family: 'Roboto', sans-serif;
-    color: white;
-    font-weight: 500;
-    padding: 8px 35px;
-    outline: none;
-    transition: all .2s ease-in-out;
+
+    &:not(.forgot-submit) {
+      background-color: #FF926B;
+      border-radius: 15px;
+      border: 1px solid transparent;
+      margin-top: 20px;
+      font-family: 'Roboto', sans-serif;
+      color: white;
+      font-weight: 500;
+      padding: 8px 35px;
+      outline: none;
+      transition: all .2s ease-in-out;
+    }
 
     &:disabled {
       background-color: grey;
@@ -55,10 +58,13 @@ form {
     &:hover {
 
       &:not([disabled]) {
-        cursor: pointer;
-        color: #FF926B;
-        border-color: #FF926B;
-        background-color: transparent;
+
+        &:not(.forgot-submit) {
+          cursor: pointer;
+          color: #FF926B;
+          border-color: #FF926B;
+          background-color: transparent;
+        }
       }
     }
 
@@ -79,8 +85,7 @@ form {
 }
 
 /* Loader */
-.loader
-{
+.loader {
   position: absolute;
   right: 76px;
   bottom: 1px;
@@ -150,6 +155,7 @@ form {
     &.submission-error {
       color: #fd7646;
     }
+
     font-weight: bold;
     font-size: 13px;
     text-align: center;

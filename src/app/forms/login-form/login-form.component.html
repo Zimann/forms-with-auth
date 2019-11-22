@@ -1,26 +1,52 @@
 <div class="login-form-wrapper">
-  <div class="login-form-body" [ngClass]="{'move-log-in-form':formMoveInitiated}">
-    <h2>Log in</h2>
-    <form [formGroup] = loginForm (ngSubmit)="onSubmitLogin()">
-      <label for="email"></label>
-      <input required id="email" formControlName="email" placeholder="Email" type="email">
-      <small [class.hide-input-validation]="(loginEmail.valid || loginEmail.untouched) && loginChecker.email">
-        Email is not valid
-      </small>
-      <label for="password"></label>
-      <input required id="password" formControlName="password" placeholder="Password" type="password">
-      <small [class.hide-input-validation]="(loginPassword.valid || loginPassword.untouched) && loginChecker.password">
-        Password is too short (Min 9 chars)
-      </small>
-      <button [disabled]="
+    <div class="login-form-body" [ngStyle]="{'marginTop': bringInForgottenPass ? '-112px': 0}"
+         [ngClass]="{'move-log-in-form':formMoveInitiated}">
+        <h2>Log in</h2>
+        <form [formGroup]=loginForm (ngSubmit)="onSubmitLogin()">
+            <label for="email"></label>
+            <input #logInRef required id="email" formControlName="email" placeholder="Email" type="email">
+            <small [class.hide-input-validation]="(loginEmail.valid || loginEmail.untouched) && loginChecker.email">
+                Email is not valid
+            </small>
+            <label for="password"></label>
+            <input required id="password" formControlName="password" placeholder="Password" type="password">
+            <small [class.hide-input-validation]="(loginPassword.valid || loginPassword.untouched) && loginChecker.password">
+                Password is too short (Min 9 chars)
+            </small>
+            <button [disabled]="
       (isUserSignedIn | async) === true ||
       loginEmail.invalid ||
-      loginPassword.invalid" type="submit">Log in</button>
-      <span *ngIf="(loaderSub | async) === false" class="loader"></span>
-    </form>
-  </div>
+      loginPassword.invalid" type="submit">Log in
+            </button>
+            <span *ngIf="(loaderSub | async) === false" class="loader"></span>
+        </form>
+        <p (click)="bringInForgottenPassword()" class="forgotten-password">Forgot password?</p>
+        <form class="forgotten-form" [ngClass]="{'bring-in-forgotten':bringInForgottenPass}"
+              [formGroup]="forgottenPassForm" (ngSubmit)="onSubmitForgottenPass()">
+            <label for="forgottenPass"></label>
+            <input #forgottenPassRef id="forgottenPass" type="email" formControlName="forgottenPassEmail"
+                   placeholder="Your Email Address">
+            <button
+                    [disabled]="forgottenSubmitted ||
+                    forgottenPassEmail.pristine ||
+                    forgottenPassEmail.value === ''||
+                    forgottenPassEmail.invalid"
+                    class="forgot-submit">
+                <i class="fas fa-check-circle"></i>
+            </button>
+            <small *ngIf="forgottenPassEmail.value === ''">
+                A new password shall be sent to the provided email address
+            </small>
+            <small class="invalid-forgotten"
+                   *ngIf="forgottenPassEmail.invalid &&
+                          forgottenPassEmail.touched">Invalid
+                Email Format</small>
+            <small *ngIf="forgottenSubmitted" class="forgotten-confirmation">Password away!</small>
+        </form>
+    </div>
 </div>
-<div class="notification-messages login-messages">
-  <p *ngIf="(isUserSignedIn | async) === true">Welcome!</p>
-  <p class="submission-error" *ngIf="(isUserSignedIn | async) !== true">{{ isUserSignedIn | async }}</p>
+<div [ngStyle]="{'display': bringInForgottenPass ? 'none': 'block'}" class="notification-messages login-messages">
+    <p *ngIf="(isUserSignedIn | async) === true">Welcome!</p>
+    <p class="submission-error"
+       *ngIf="isUserSignedIn !== undefined && (isUserSignedIn | async) !== true">{{ isUserSignedIn | async }}</p>
 </div>

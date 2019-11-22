@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ReplaySubject} from 'rxjs';
+import {ReplaySubject, Subscription} from 'rxjs';
 import {AuthService} from '../../services/auth.service';
 import {CrossComponentService} from '../../services/cross-component.service';
 
@@ -13,6 +13,7 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
 
     private destroyed$ = new ReplaySubject(1);
     public isUserSignedUp = this.authService.signedUpSubj;
+    public signUpSub: Subscription;
     public loaderSub = this.authService.signUpLoaderSubj;
     @Input() formMoveInitiated: boolean;
     public signUpForm: FormGroup;
@@ -61,7 +62,7 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this.crossComponentService.resetSignUpForm$.subscribe(data => {
+        this.signUpSub = this.crossComponentService.resetSignUpForm$.subscribe(data => {
             if (data) {
                 this.signUpForm.reset();
             }
@@ -83,6 +84,6 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroyed$.next(true);
         this.destroyed$.complete();
-        this.crossComponentService.resetSignUpForm$.unsubscribe();
+        this.signUpSub.unsubscribe();
     }
 }

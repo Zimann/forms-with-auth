@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {takeUntil} from 'rxjs/operators';
+import {debounceTime, takeUntil} from 'rxjs/operators';
 import {BehaviorSubject, ReplaySubject} from 'rxjs';
 import {CrossComponentService} from '../../../services/cross-component.service';
 
@@ -77,13 +77,17 @@ export class UserProfileInputsComponent implements OnInit, OnDestroy {
 
         // this is where we get data for our two user related inputs
         this.nameForm.valueChanges
-            .pipe(takeUntil(this.destroyed$))
+            .pipe(
+                takeUntil(this.destroyed$),
+                debounceTime((500)))
             .subscribe(value => {
                 this.userNameTracker$.next(value.user_name);
             });
 
         this.statusForm.valueChanges
-            .pipe(takeUntil(this.destroyed$))
+            .pipe(
+                takeUntil(this.destroyed$),
+                debounceTime((500)))
             .subscribe(value => {
                 this.statusTracker$.next(value.status);
             });
@@ -99,13 +103,6 @@ export class UserProfileInputsComponent implements OnInit, OnDestroy {
                 this.hideStatusCheck = false;
             }
         });
-        // this.resetUserInputState();
-        // this.resetStatusInputState();
-        // this.changePasswordForm.reset();
-
-        // this.bringInPassChange = false;
-        // this.hideUsernameCheck = false;
-        // this.hideStatusCheck = false;
     }
 
     // executed when clicking the 'edit' icon
