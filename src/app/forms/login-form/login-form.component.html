@@ -1,10 +1,10 @@
 <div class="login-form-wrapper">
-    <div class="login-form-body" [ngStyle]="{'marginTop': bringInForgottenPass ? '-112px': 0}"
+    <div class="login-form-body" [ngStyle]="{'transform': bringInForgottenPass ? 'translateY(-50px)': 'translateY(0)'}"
          [ngClass]="{'move-log-in-form':formMoveInitiated}">
         <h2>Log in</h2>
         <form [formGroup]=loginForm (ngSubmit)="onSubmitLogin()">
             <label for="email"></label>
-            <input #logInRef required id="email" formControlName="email" placeholder="Email" type="email">
+            <input required id="email" formControlName="email" placeholder="Email" type="email">
             <small [class.hide-input-validation]="(loginEmail.valid || loginEmail.untouched) && loginChecker.email">
                 Email is not valid
             </small>

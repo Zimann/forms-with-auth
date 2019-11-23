@@ -149,8 +149,7 @@
   .change-password-section {
     width: 100%;
     position: relative;
-    transform: translateZ(0);
-    left: -400px;
+    transform: translateX(-400px) translateZ(0);
     transition: all .3s ease-in-out;
 
     form {
