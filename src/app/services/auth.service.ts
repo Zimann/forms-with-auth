@@ -12,9 +12,7 @@ interface SignUpResponse {
     localId: string;
 }
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
     firebaseAPIKey = apiKeys;
     signUpEndpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.firebaseAPIKey}`;
@@ -43,7 +41,6 @@ export class AuthService {
                 this.signUpLoaderSubj.next(true);
             },
             () => {
-                console.log(this.firebaseAPIKey);
                 this.signedUpSubj.next(this.failedSignUpMessage);
                 this.signUpLoaderSubj.next(true);
             });
