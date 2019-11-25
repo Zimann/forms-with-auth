@@ -15,6 +15,10 @@
 
       &:not(:first-of-type) {
         margin-top: 50px;
+
+        @include for-small-height {
+          margin-top: 21px;
+        }
       }
 
       .field-overlay {
@@ -144,6 +148,10 @@
     font-size: 13px;
     color: $base-text-color;
     cursor: pointer;
+
+    @include for-small-height {
+      margin-bottom: 5px;
+    }
   }
 
   .change-password-section {

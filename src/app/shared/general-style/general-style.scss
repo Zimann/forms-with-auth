@@ -16,3 +16,9 @@ $input-text-color: #ff7241;
 .slide-in-password {
   transform: translateZ(0) translateX(0) !important;
 }
+
+/* mixins */
+
+@mixin for-small-height {
+  @media (max-height: 599px) { @content; }
+}

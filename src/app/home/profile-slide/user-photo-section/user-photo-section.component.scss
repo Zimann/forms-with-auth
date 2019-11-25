@@ -9,6 +9,11 @@
   border-radius: 50%;
   overflow: hidden;
 
+  @include for-small-height {
+    width: 80px;
+    height: 80px;
+  }
+
   #profile_pic {
     position: absolute;
     height: 100%;
@@ -24,6 +29,8 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+    cursor: pointer;
+    opacity: 0;
 
     &::-webkit-file-upload-button {
       opacity: 0;
@@ -38,8 +45,10 @@
   }
 
   .user-overlay {
-    height: 147px;
-    width: 146px;
+    //height: 147px;
+    height: 100%;
+    width: 100%;
+    //width: 146px;
     opacity: 0.8;
     background-color: $base-text-color;
     position: absolute;
@@ -54,10 +63,18 @@
     p {
       color: white;
       margin: 0;
+
+      @include for-small-height {
+        font-size: 10px;
+      }
     }
 
     i {
-      font-size: 35px;
+      font-size: 30px;
+
+      @include for-small-height {
+        font-size: 20px;
+      }
     }
   }
 

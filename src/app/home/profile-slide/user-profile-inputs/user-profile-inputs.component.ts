@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {debounceTime, takeUntil} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 import {BehaviorSubject, ReplaySubject} from 'rxjs';
 import {CrossComponentService} from '../../../services/cross-component.service';
 
@@ -78,8 +78,8 @@ export class UserProfileInputsComponent implements OnInit, OnDestroy {
         // this is where we get data for our two user related inputs
         this.nameForm.valueChanges
             .pipe(
-                takeUntil(this.destroyed$),
-                debounceTime((500)))
+                takeUntil(this.destroyed$)
+            )
             .subscribe(value => {
                 this.userNameTracker$.next(value.user_name);
             });
@@ -87,7 +87,7 @@ export class UserProfileInputsComponent implements OnInit, OnDestroy {
         this.statusForm.valueChanges
             .pipe(
                 takeUntil(this.destroyed$),
-                debounceTime((500)))
+            )
             .subscribe(value => {
                 this.statusTracker$.next(value.status);
             });

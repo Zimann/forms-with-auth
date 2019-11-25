@@ -55,15 +55,20 @@ input.mat-input-element {
 }
 
 .mat-form-field-invalid {
+
   .mat-form-field-underline {
+
     .mat-form-field-ripple {
       background: transparent;
     }
   }
 }
 
-.mat-form-field-appearance-legacy .mat-form-field-label {
-  color: $base-text-color;
+.mat-form-field-appearance-legacy {
+
+  .mat-form-field-label {
+    color: $base-text-color;
+  }
 }
 
 .mat-focused {
