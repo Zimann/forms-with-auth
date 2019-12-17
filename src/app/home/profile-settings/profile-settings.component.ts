@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
+import Routes from '../../shared/routes/routes';
 
 @Component({
   selector: 'app-profile-settings',
@@ -18,7 +19,7 @@ export class ProfileSettingsComponent implements OnInit {
 
   logOut() {
     localStorage.clear();
-    this.router.navigate(['/authentication']);
+    this.router.navigate([Routes.AUTHENTICATION]);
   }
 
   showProfile() {

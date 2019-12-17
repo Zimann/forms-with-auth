@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
+import Routes from '../shared/routes/routes';
 
 @Component({
   selector: 'app-forms',
@@ -19,8 +20,9 @@ export class FormsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (Object.keys(localStorage).length !== 0) {
-      this.router.navigate(['/home']);
+    const timeDif = Number(localStorage.getItem('departureMomentDate')) - Number(localStorage.getItem('requestMomentDate'));
+    if (timeDif < Number(localStorage.getItem('tokenExpiry')) && localStorage.getItem('requestMomentDate')) {
+      this.router.navigate([Routes.HOME]);
     }
   }
 }

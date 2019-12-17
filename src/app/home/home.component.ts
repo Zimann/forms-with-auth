@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {fromEvent, Subscription, timer} from 'rxjs';
 import {take} from 'rxjs/operators';
+import Routes from '../shared/routes/routes';
 
 @Component({
   selector: 'app-home',
@@ -18,20 +19,25 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    let departureMomentDate;
+
+    // add local storage timeStamp when navigating away
+    window.addEventListener('beforeunload', (e) => {
+      departureMomentDate = Math.round(new Date().getTime() / 1000);
+      localStorage.setItem('departureMomentDate', String(departureMomentDate));
+    });
     // route user back to the authentication page once the token expires
     const tokenExpiryTime = Number(localStorage.getItem('tokenExpiry')) * 1000;
     const tokenExpiry$ = timer(tokenExpiryTime);
     tokenExpiry$.subscribe(() => {
       localStorage.clear();
+      this.router.navigate([Routes.AUTHENTICATION]);
     });
-    if (Object.keys(localStorage).length === 0) {
-      this.router.navigate(['/authentication']);
-    }
   }
 
   logOut() {
     localStorage.clear();
-    this.router.navigate(['/authentication']);
+    this.router.navigate([Routes.AUTHENTICATION]);
   }
 
   showProfileSection(data: boolean) {

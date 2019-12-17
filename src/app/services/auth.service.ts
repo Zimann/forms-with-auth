@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import { apiKeys } from './apiKeys';
+import Routes from '../shared/routes/routes';
 
 interface SignUpResponse {
     idToken: string;
@@ -54,12 +55,13 @@ export class AuthService {
             returnSecureToken: true
         }).subscribe(
             (data) => {
-                const requestMomentDate = new Date().getTime();
+                localStorage.clear();
+                const requestMomentDate = Math.round(new Date().getTime() / 1000);
                 localStorage.setItem('requestMomentDate', String(requestMomentDate));
                 localStorage.setItem('tokenExpiry', data.expiresIn);
                 this.loggedInSubj.next(true);
                 this.logInLoaderSubj.next(true);
-                this.router.navigate(['/home']);
+                this.router.navigate([Routes.HOME]);
             },
             () => {
                 this.loggedInSubj.next(this.failedLogInMessage);
