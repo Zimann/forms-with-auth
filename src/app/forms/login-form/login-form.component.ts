@@ -93,7 +93,9 @@ export class LoginFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnInit(): void {
 
-        this.signInSub = this.crossComponentService.resetLoginForm$.subscribe(data => {
+        this.signInSub = this.crossComponentService.resetLoginForm$
+            .pipe(takeUntil(this.destroyed$))
+            .subscribe(data => {
             if (data) {
                 this.loginForm.reset();
             }
@@ -147,7 +149,6 @@ export class LoginFormComponent implements OnInit, OnDestroy, AfterViewInit {
     ngOnDestroy(): void {
         this.destroyed$.next(true);
         this.destroyed$.complete();
-        this.signInSub.unsubscribe();
     }
 
 }

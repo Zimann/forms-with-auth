@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {fromEvent, Subscription, timer} from 'rxjs';
-import {take} from 'rxjs/operators';
+import {fromEvent, of, pipe, ReplaySubject, Subscription, timer} from 'rxjs';
+import {take, takeUntil} from 'rxjs/operators';
 import Routes from '../shared/routes/routes';
 
 @Component({
@@ -9,12 +9,13 @@ import Routes from '../shared/routes/routes';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   showMenu = false;
   bringInSlide = false;
   outSideClickSubj: Subscription;
   listenForOutsideClicks$ = fromEvent(document, 'click');
+  private destroyed$ = new ReplaySubject(1);
 
   constructor(private router: Router) { }
 
@@ -29,7 +30,9 @@ export class HomeComponent implements OnInit {
     // route user back to the authentication page once the token expires
     const tokenExpiryTime = Number(localStorage.getItem('tokenExpiry')) * 1000;
     const tokenExpiry$ = timer(tokenExpiryTime);
-    tokenExpiry$.subscribe(() => {
+    tokenExpiry$
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe(() => {
       localStorage.clear();
       this.router.navigate([Routes.AUTHENTICATION]);
     });
@@ -67,6 +70,11 @@ export class HomeComponent implements OnInit {
         this.outSideClickSubj.unsubscribe();
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }
 
