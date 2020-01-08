@@ -55,16 +55,26 @@
         <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmitChangePass()">
             <mat-form-field floatLabel="never">
                 <mat-label>Your new password</mat-label>
-                <input name="initPassword"  #initialPasswordInput matInput formControlName="initPassword" type="password">
-                <small *ngIf="initPassword.invalid" class="input-check">Your password is too short (min 9 chars allowed)</small>
+                <input  name="initPass"  #initialPasswordInput matInput formControlName="initPass" type="password">
+                <small *ngIf="initPass.invalid" class="input-check">Your password is too short (min 9 chars allowed)</small>
             </mat-form-field>
             <mat-form-field floatLabel="never">
                 <mat-label>Confirm password</mat-label>
-                <input #confirmPassInput appConfirmEqualValidator="initPassword" matInput formControlName="confirmedPass" type="password">
-                <button [disabled]="confirmedPas.pristine || confirmedPas.value === ''|| confirmedPas.invalid" type="submit">
+                <input #confirmPassInput appConfirmEqualValidator="initPass" matInput formControlName="confirmedPass" type="password">
+                <button [disabled]="
+                initPass.value !== confirmedPas.value ||
+                confirmedPas.pristine ||
+                confirmedPas.value === ''||
+                confirmedPas.invalid
+                " type="submit">
                     <i class="fas fa-check-circle"></i>
                 </button>
-                <small class="input-check" *ngIf="confirmedPas.errors?.notEqual">
+                <small class="input-check" *ngIf="
+                confirmedPas.value !== '' &&
+                initPass.errors?.notEqual ||
+                initPass.value !== confirmedPas.value &&
+                confirmedPas.value !== ''||
+                confirmedPas.errors?.notEqual">
                     The two passwords don't match yet
                 </small>
                 <small class="forgot-pass-confirmation" [class.show-update-message]="showPassChanged">Password updated!</small>

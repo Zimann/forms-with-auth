@@ -49,8 +49,8 @@ export class UserProfileInputsComponent implements OnInit, OnDestroy {
         return this.statusForm.get('status');
     }
 
-    get initPassword() {
-        return this.changePasswordForm.get('initPassword');
+    get initPass() {
+        return this.changePasswordForm.get('initPass');
     }
 
     get confirmedPas() {
@@ -67,7 +67,7 @@ export class UserProfileInputsComponent implements OnInit, OnDestroy {
             status: ['']
         });
         this.changePasswordForm = this.formBuilder.group({
-            initPassword: ['', [
+            initPass: ['', [
                 Validators.minLength(9)
             ]],
             confirmedPass: ['', [
