@@ -8,6 +8,7 @@ section {
   height: 100vh;
   transition: all 0.2s ease-in-out;
   transition-delay: 0.1s;
+  z-index: 1;
 
   &.slide-in {
     left: 0;
@@ -49,6 +50,7 @@ section {
   }
 
   .profile-body {
+    background-color: white;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

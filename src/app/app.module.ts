@@ -17,7 +17,8 @@ import {MaterialModule} from './material/material.module';
 import {ConfirmEqualValidatorDirective} from './shared/custom-directives/confirm-equal-validator.directive';
 import { UserProfileInputsComponent } from './home/profile-slide/user-profile-inputs/user-profile-inputs.component';
 import { UserPhotoSectionComponent } from './home/profile-slide/user-photo-section/user-photo-section.component';
-import { SendDataBarComponent } from './home/send-data-bar/send-data-bar.component';
+import { MessageBarComponent } from './home/message-bar/message-bar.component';
+import { ContactsComponent } from './home/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SendDataBarComponent } from './home/send-data-bar/send-data-bar.compone
     ConfirmEqualValidatorDirective,
     UserProfileInputsComponent,
     UserPhotoSectionComponent,
-    SendDataBarComponent,
+    MessageBarComponent,
+    ContactsComponent,
   ],
   imports: [
     BrowserModule,

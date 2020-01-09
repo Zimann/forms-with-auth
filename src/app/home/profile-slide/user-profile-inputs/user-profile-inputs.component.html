@@ -22,14 +22,14 @@
                 presentUsername === (userNameTracker$ | async) ||
                 (userNameTracker$| async).length < 1 ||
                 (userNameTracker$ | async)=== undefined">
-            <i *ngIf="editUserNameClicked" class="fas fa-check-circle"></i>
+            <i *ngIf="editUserNameClicked" class="fas fa-check-circle" (click)="confirmName()"></i>
         </button>
         <i *ngIf="!editUserNameClicked" (click)=activateUserInput() class="fas fa-user-edit"></i>
     </form>
     <form [formGroup]="statusForm" (ngSubmit)="onSubmitStatus()">
         <div *ngIf="!editStatusClicked" class="field-overlay"></div>
+        <small class="description-label">Status</small>
         <mat-form-field floatLabel="never">
-            <small class="description-label">Status</small>
             <mat-label>Your status</mat-label>
             <input #statusInput id="status" matInput formControlName="status" type="text" tabindex="-1">
             <small class="input-check" *ngIf="

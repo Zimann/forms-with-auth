@@ -1,0 +1,41 @@
+@import '../../shared/general-style/general-style';
+
+.contact-wrapper {
+  width: 100%;
+  display: flex;
+  padding: 12px;
+  border-bottom: 1px solid #ededed;
+  cursor: pointer;
+  transition: all .1s ease-in;
+
+  &:hover {
+    background-color: #ededed;
+  }
+
+  .text-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 12px;
+    width: 82%;
+
+    p {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+
+  .avatar-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+
+    img {
+      height: 100%;
+    }
+  }
+}
+

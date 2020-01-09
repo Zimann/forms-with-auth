@@ -92,12 +92,10 @@ export class UserProfileInputsComponent implements OnInit, OnDestroy {
                 this.statusTracker$.next(value.status);
             });
 
+        // responsible for password input reset when clicking the 'back' arrow
         this.crossComponentService.slideOutToggle$.subscribe((data) => {
             if (data) {
-                this.resetUserInputState();
-                this.resetStatusInputState();
                 this.changePasswordForm.reset();
-
                 this.bringInPassChange = false;
                 this.hideUsernameCheck = false;
                 this.hideStatusCheck = false;
@@ -193,7 +191,7 @@ export class UserProfileInputsComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroyed$.next(true);
         this.destroyed$.complete();
-        this.crossComponentService.slideOutToggle$.unsubscribe();
+        // this.crossComponentService.slideOutToggle$.unsubscribe();
     }
 
 }

@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {fromEvent, of, pipe, ReplaySubject, Subscription, timer} from 'rxjs';
+import {fromEvent, ReplaySubject, Subscription, timer} from 'rxjs';
 import {take, takeUntil} from 'rxjs/operators';
 import Routes from '../shared/routes/routes';
+import {CrossComponentService} from '../services/cross-component.service';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +14,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   showMenu = false;
   bringInSlide = false;
+  hideBottomBar = this.crossComponentService.showMessageBar$;
+
   outSideClickSubj: Subscription;
   listenForOutsideClicks$ = fromEvent(document, 'click');
   private destroyed$ = new ReplaySubject(1);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private crossComponentService: CrossComponentService) { }
 
   ngOnInit() {
     let departureMomentDate;

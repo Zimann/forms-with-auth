@@ -1,0 +1,13 @@
+<div class="contacts-container">
+    <div *ngFor="let contact of contactList"
+         class="contact-wrapper"
+        (click) = switchToMessageWindow()>
+        <div class="avatar-wrapper">
+            <img src="{{contact.photoUrl}}" alt="avatar">
+        </div>
+        <div class="text-wrapper">
+            <p>{{contact.userName}}</p>
+            <p>{{contact.lastMessage}}</p>
+        </div>
+    </div>
+</div>

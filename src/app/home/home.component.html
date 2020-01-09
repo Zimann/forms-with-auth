@@ -11,9 +11,10 @@
     </div>
     <app-profile-slide
             [slideIn]="setSlidingState()"
-            (slideOutEmitter)="showProfileSection($event)"
-    ></app-profile-slide>
+            (slideOutEmitter)="showProfileSection($event)">
+    </app-profile-slide>
+    <app-contacts></app-contacts>
 </section>
-<app-send-data-bar></app-send-data-bar>
+<app-message-bar></app-message-bar>
 <small class="favicon-text">Favicon provided by <a target="_blank" href="https://icons8.com">icons8.com</a> </small>
-<div class="bottom-separator"></div>
+<div [ngStyle]="{'opacity': (hideBottomBar | async) ? 0: 1}" class="bottom-separator"></div>
